@@ -12,32 +12,33 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: "Rubynox | Software Agency",
   description:
-    "Rubynox builds premium websites, apps, automation systems, dashboards, APIs, and practical AI solutions for growing businesses.",
-  metadataBase: new URL("https://rubynox.com"),
-  openGraph: {
-    title: "Rubynox | Software Agency",
-    description:
-      "Premium software development, automation, and AI support for business teams.",
-    type: "website"
-  }
+    "Rubynox builds premium websites, apps, automation systems, dashboards, APIs, and AI solutions for growing businesses.",
 };
 
 export default function RootLayout({
   children
-}: Readonly<{ children: React.ReactNode }>) {
+}: {
+  children: React.ReactNode;
+}) {
   const themeScript = `
-    try {
-      var theme = localStorage.getItem("rubynox-theme") || "light";
-      document.documentElement.dataset.theme = theme;
-    } catch (_) {
-      document.documentElement.dataset.theme = "light";
-    }
+    (function () {
+      try {
+        var theme = localStorage.getItem("rubynox-theme") || "light";
+        document.documentElement.setAttribute("data-theme", theme);
+      } catch (e) {
+        document.documentElement.setAttribute("data-theme", "light");
+      }
+    })();
   `;
 
   return (
     <html lang="en" className={inter.variable} suppressHydrationWarning>
-      <body className="font-sans antialiased bg-midnight">
+      <head>
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+      </head>
+
+      {/* ❌ removed bg-midnight */}
+      <body className="font-sans antialiased">
         {children}
         <Footer />
       </body>

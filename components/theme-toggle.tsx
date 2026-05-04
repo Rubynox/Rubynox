@@ -7,20 +7,36 @@ type Theme = "light" | "dark";
 
 export function ThemeToggle() {
   const [theme, setTheme] = useState<Theme>("light");
+  const [mounted, setMounted] = useState(false);
 
+  // Sync with DOM + localStorage on mount
   useEffect(() => {
-    const savedTheme = window.localStorage.getItem("rubynox-theme") as Theme | null;
-    const nextTheme = savedTheme === "dark" ? "dark" : "light";
-    setTheme(nextTheme);
-    document.documentElement.dataset.theme = nextTheme;
+    const stored = localStorage.getItem("rubynox-theme") as Theme | null;
+
+    const systemPrefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+
+    const initialTheme: Theme =
+      stored === "dark" || stored === "light"
+        ? stored
+        : systemPrefersDark
+        ? "dark"
+        : "light";
+
+    document.documentElement.setAttribute("data-theme", initialTheme);
+    setTheme(initialTheme);
+    setMounted(true);
   }, []);
 
   function toggleTheme() {
-    const nextTheme = theme === "dark" ? "light" : "dark";
+    const nextTheme: Theme = theme === "dark" ? "light" : "dark";
+
+    document.documentElement.setAttribute("data-theme", nextTheme);
+    localStorage.setItem("rubynox-theme", nextTheme);
     setTheme(nextTheme);
-    document.documentElement.dataset.theme = nextTheme;
-    window.localStorage.setItem("rubynox-theme", nextTheme);
   }
+
+  // Prevent hydration mismatch flicker
+  if (!mounted) return null;
 
   const isDark = theme === "dark";
 

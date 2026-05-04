@@ -2,8 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ================= THEME VARIABLES ================= */
+
 :root {
   color-scheme: light;
+
   --color-bg: 247 250 252;
   --color-foreground: 14 28 43;
   --color-card: 255 255 255;
@@ -11,12 +14,13 @@
   --color-muted: 82 98 117;
   --color-accent: 7 55 94;
   --color-accent-soft: 0 104 129;
-  --shadow-color: 9 36 60;
+
   background: rgb(var(--color-bg));
 }
 
 :root[data-theme="dark"] {
   color-scheme: dark;
+
   --color-bg: 8 15 23;
   --color-foreground: 241 247 252;
   --color-card: 13 26 39;
@@ -24,24 +28,28 @@
   --color-muted: 171 185 199;
   --color-accent: 38 122 170;
   --color-accent-soft: 63 177 196;
-  --shadow-color: 0 0 0;
+
   background: rgb(var(--color-bg));
 }
+
+/* ================= GLOBAL ================= */
 
 html {
   scroll-behavior: smooth;
   overflow-x: hidden;
+  transition: background 0.2s ease, color 0.2s ease;
 }
 
 body {
   min-height: 100vh;
   overflow-x: hidden;
-  background:
-    radial-gradient(circle at 18% 0%, rgb(var(--color-accent-soft) / 0.08), transparent 28rem),
-    linear-gradient(180deg, #f7f9fc 0%, rgb(var(--color-bg)) 42rem),
-    rgb(var(--color-bg));
   color: rgb(var(--color-foreground));
   text-rendering: optimizeLegibility;
+
+  /* 🔥 FIXED: theme-aware background */
+  background:
+    radial-gradient(circle at 18% 0%, rgb(var(--color-accent-soft) / 0.08), transparent 28rem),
+    linear-gradient(180deg, rgb(var(--color-bg)) 0%, rgb(var(--color-bg)) 100%);
 }
 
 * {
@@ -53,29 +61,20 @@ body {
   color: white;
 }
 
-.noise-layer {
-  background-image:
-    linear-gradient(rgb(var(--color-foreground) / 0.035) 1px, transparent 1px),
-    linear-gradient(90deg, rgb(var(--color-foreground) / 0.035) 1px, transparent 1px);
-  background-size: 44px 44px;
-  mask-image: linear-gradient(to bottom, black, transparent 72%);
-}
-
-.ambient-field {
-  background:
-    radial-gradient(circle at 18% 6%, rgb(var(--color-accent-soft) / 0.08), transparent 28rem),
-    radial-gradient(circle at 85% 12%, rgb(var(--color-accent) / 0.06), transparent 24rem);
-}
-
-.section-band {
-  background:
-    linear-gradient(180deg, rgb(var(--color-card) / 0.72), rgb(var(--color-bg) / 0.78));
-}
+/* ================= UTILITIES ================= */
 
 .section-shell {
   @apply mx-auto w-full max-w-7xl px-5 sm:px-6 lg:px-8;
 }
 
 .focus-ring {
-  @apply focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-midnight;
+  @apply focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2;
+}
+
+/* subtle texture */
+.noise-layer {
+  background-image:
+    linear-gradient(rgb(var(--color-foreground) / 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(var(--color-foreground) / 0.03) 1px, transparent 1px);
+  background-size: 44px 44px;
 }
