@@ -54,6 +54,32 @@ export function SiteHeader() {
             ))}
           </nav>
 
+          <div className="flex items-center gap-3">
+            {/* <ThemeToggle /> */}
+
+            <a
+              href={buildWhatsAppUrl("Hi Rubynox, I want to discuss a requirement.")}
+              className="
+                hidden sm:inline-flex items-center gap-2
+                rounded-full bg-[rgb(var(--color-accent))]
+                px-5 py-2.5 text-sm font-medium text-white
+                transition duration-200
+                hover:bg-[rgb(var(--color-accent-soft))]
+                hover:shadow-[0_6px_20px_rgba(15,61,94,0.25)]
+              "
+            >
+              <MessageCircle className="h-4 w-4" />
+              WhatsApp
+            </a>
+
+            <button
+              onClick={() => setOpen(!open)}
+              className="inline-flex items-center justify-center rounded-lg border border-line p-2 md:hidden"
+            >
+              {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+            </button>
+          </div>
+
         </div>
       </div>
 

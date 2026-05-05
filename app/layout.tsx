@@ -38,7 +38,7 @@ export default function RootLayout({
       </head>
 
       {/* ❌ removed bg-midnight */}
-      <body className="font-sans antialiased">
+      <body className="font-sans bg-midnight antialiased">
         {children}
         <Footer />
       </body>
