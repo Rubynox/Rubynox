@@ -10,12 +10,17 @@ const config: Config = {
     extend: {
       colors: {
         midnight: "rgb(var(--color-bg) / <alpha-value>)",
+        "midnight-soft": "rgb(var(--color-bg-soft) / <alpha-value>)",
         ink: "rgb(var(--color-foreground) / <alpha-value>)",
         card: "rgb(var(--color-card) / <alpha-value>)",
+        "card-strong": "rgb(var(--color-card-strong) / <alpha-value>)",
         line: "rgb(var(--color-line) / <alpha-value>)",
         muted: "rgb(var(--color-muted) / <alpha-value>)",
         accent: "rgb(var(--color-accent) / <alpha-value>)",
-        "accent-soft": "rgb(var(--color-accent-soft) / <alpha-value>)"
+        "accent-soft": "rgb(var(--color-accent-soft) / <alpha-value>)",
+        "accent-contrast": "rgb(var(--color-accent-contrast) / <alpha-value>)",
+        success: "rgb(var(--color-success) / <alpha-value>)",
+        danger: "rgb(var(--color-danger) / <alpha-value>)"
       },
       fontFamily: {
         sans: ["var(--font-inter)", "Inter", "system-ui", "sans-serif"]

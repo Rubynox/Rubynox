@@ -1,21 +1,20 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import Image from "next/image";
+import { useEffect, useState } from "react";
 
 export function Logo() {
   const [theme, setTheme] = useState<"light" | "dark">("light");
 
   useEffect(() => {
-    const getTheme = () => {
-      const current = document.documentElement.getAttribute("data-theme");
-      return current === "dark" ? "dark" : "light";
-    };
+    function readTheme() {
+      return document.documentElement.getAttribute("data-theme") === "dark" ? "dark" : "light";
+    }
 
-    setTheme(getTheme());
+    setTheme(readTheme());
 
     const observer = new MutationObserver(() => {
-      setTheme(getTheme());
+      setTheme(readTheme());
     });
 
     observer.observe(document.documentElement, {
@@ -27,14 +26,15 @@ export function Logo() {
   }, []);
 
   return (
-    <div className="flex items-center h-12">
+    <div className="flex h-14 w-[184px] items-center sm:w-[214px]">
       <Image
         src={theme === "dark" ? "/logo-dark.png" : "/logo-light.png"}
-        alt="Rubynox"
-        width={220}
-        height={60}
+        alt="Rubunoxx"
+        width={260}
+        height={76}
         priority
-        className="h-12 w-auto object-contain"
+        className="h-12 w-auto object-contain sm:h-14"
+        sizes="(max-width: 640px) 184px, 214px"
       />
     </div>
   );

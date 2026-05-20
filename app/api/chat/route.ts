@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { saveLead } from "@/lib/leads";
+import { saveChatConversation, saveRequirement } from "@/lib/leads";
 import { buildWhatsAppUrl } from "@/lib/whatsapp";
 
 type ChatMessage = {
@@ -12,163 +12,142 @@ type ChatRequest = {
   history?: ChatMessage[];
 };
 
-type ProjectType =
-  | "Website / web app"
-  | "CRM system"
-  | "Dashboard / analytics"
-  | "Business automation"
-  | "AI assistant"
-  | "Mobile app"
-  | "SaaS / portal"
-  | "API / integration"
-  | "Custom software";
-
-type Profile = {
-  projectType: ProjectType;
-  business?: string;
-  problem?: string;
-  users?: string;
-  features: string[];
-  integrations: string[];
-  timeline?: string;
-  budget?: string;
-};
-
 type Contact = {
   name?: string;
   email?: string;
   phone?: string;
 };
 
-type Scenario = {
-  type: ProjectType;
-  patterns: RegExp[];
-  summary: string;
+type ConversationProfile = {
+  projectType: string;
+  businessType: string | null;
+  problem: string | null;
+  users: string | null;
   features: string[];
+  integrations: string[];
+  budget: string | null;
+  timeline: string | null;
+  contact: Contact;
+  confidence: number;
 };
 
-const scenarios: Scenario[] = [
+const projectSignals = [
   {
-    type: "CRM system",
-    patterns: [/crm/i, /lead/i, /enquir/i, /inquir/i, /customer/i, /sales/i, /follow[- ]?up/i],
-    summary: "A CRM can organize leads, follow-ups, owners, notes, and WhatsApp handoff.",
-    features: ["lead stages", "follow-up reminders", "team assignment", "reports"]
+    type: "Web Development",
+    terms: ["website", "site", "landing page", "web app", "seo", "pages"],
+    featureHints: ["service pages", "lead form", "appointment booking", "payment", "admin panel", "blog", "SEO setup"]
   },
   {
-    type: "Business automation",
-    patterns: [/automat/i, /manual/i, /workflow/i, /approval/i, /reminder/i, /repeated/i, /daily report/i],
-    summary: "Automation can reduce repeated manual work and keep tasks moving without constant checking.",
-    features: ["triggers", "reminders", "notifications", "scheduled reports"]
+    type: "Mobile App Development",
+    terms: ["mobile app", "android", "ios", "app", "play store", "app store"],
+    featureHints: ["login", "profile", "push notifications", "booking", "payments", "admin dashboard", "tracking"]
   },
   {
-    type: "Mobile app",
-    patterns: [/mobile/i, /\bapp\b/i, /android/i, /ios/i, /field team/i, /delivery/i],
-    summary: "A mobile app fits when users need to work from phones, outside the office, or on the move.",
-    features: ["login", "mobile forms", "notifications", "admin dashboard"]
+    type: "CRM Systems",
+    terms: ["crm", "lead", "leads", "follow up", "sales", "pipeline", "customer"],
+    featureHints: ["lead stages", "follow-up reminders", "team assignment", "notes", "WhatsApp handoff", "reports"]
   },
   {
-    type: "Dashboard / analytics",
-    patterns: [/dashboard/i, /analytics/i, /report/i, /metrics/i, /kpi/i, /excel/i, /sheet/i],
-    summary: "A dashboard can turn scattered data into clear daily metrics and reports.",
-    features: ["metric cards", "filters", "charts", "exports"]
+    type: "Dashboard Development",
+    terms: ["dashboard", "report", "analytics", "metrics", "kpi", "spreadsheet", "excel"],
+    featureHints: ["metric cards", "charts", "filters", "exports", "role access", "daily summary"]
   },
   {
-    type: "AI assistant",
-    patterns: [/\bai\b/i, /chatbot/i, /assistant/i, /\bbot\b/i, /faq/i, /support/i],
-    summary: "An AI assistant can answer common questions, qualify leads, and hand serious enquiries to your team.",
-    features: ["guided chat", "FAQ answers", "lead qualification", "WhatsApp handoff"]
+    type: "AI Integration",
+    terms: ["ai", "chatbot", "assistant", "bot", "faq", "support"],
+    featureHints: ["guided chat", "FAQ answers", "lead qualification", "summary generation", "human handoff"]
   },
   {
-    type: "SaaS / portal",
-    patterns: [/saas/i, /portal/i, /subscription/i, /mvp/i, /founder/i, /multi[- ]?tenant/i],
-    summary: "A SaaS or portal should start with one focused version before expanding.",
-    features: ["user accounts", "roles", "admin panel", "customer dashboard"]
+    type: "Business Automation",
+    terms: ["automation", "automate", "manual", "workflow", "approval", "reminder", "repeat"],
+    featureHints: ["triggers", "approval steps", "notifications", "scheduled reports", "status tracking"]
   },
   {
-    type: "API / integration",
-    patterns: [/api/i, /integration/i, /connect/i, /sync/i, /webhook/i, /payment gateway/i, /erp/i],
-    summary: "An integration can connect tools so data does not need to be entered twice.",
-    features: ["secure API", "webhooks", "data sync", "error logs"]
+    type: "SaaS Development",
+    terms: ["saas", "portal", "subscription", "mvp", "multi tenant", "platform"],
+    featureHints: ["user accounts", "roles", "admin panel", "billing", "customer dashboard", "subscription"]
   },
   {
-    type: "Website / web app",
-    patterns: [/website/i, /landing/i, /web app/i, /\bsite\b/i, /seo/i],
-    summary: "A website or web app can explain your business, build trust, and capture enquiries.",
-    features: ["service sections", "lead form", "WhatsApp CTA", "case studies"]
+    type: "API Integrations",
+    terms: ["api", "integration", "connect", "sync", "webhook", "payment gateway", "erp"],
+    featureHints: ["secure API", "webhooks", "data sync", "error logs", "payment integration"]
   }
 ];
 
-const featureWords = [
-  "login",
-  "dashboard",
-  "payment",
-  "reports",
-  "notifications",
-  "booking",
-  "form",
-  "upload",
-  "tracking",
-  "admin panel",
-  "roles",
-  "export",
-  "reminders",
-  "analytics"
+const businessSignals = [
+  "hospital",
+  "clinic",
+  "restaurant",
+  "school",
+  "college",
+  "coaching",
+  "real estate",
+  "agency",
+  "manufacturing",
+  "ecommerce",
+  "retail",
+  "travel",
+  "logistics",
+  "finance",
+  "service business",
+  "consulting",
+  "gym",
+  "salon",
+  "hotel"
 ];
 
-const integrationWords = ["whatsapp", "email", "excel", "sheets", "payment", "razorpay", "stripe", "crm", "erp", "api"];
+const knownFeatures = [
+  "appointment booking",
+  "patient dashboard",
+  "admin panel",
+  "doctor panel",
+  "menu",
+  "table booking",
+  "delivery tracking",
+  "online ordering",
+  "payments",
+  "login",
+  "reports",
+  "notifications",
+  "file upload",
+  "chat",
+  "inventory",
+  "roles",
+  "analytics",
+  "lead tracking",
+  "follow-up reminders",
+  "WhatsApp",
+  "email",
+  "Razorpay",
+  "Stripe",
+  "Excel",
+  "Google Sheets"
+];
 
-function userText(history: ChatMessage[], message: string) {
-  return [...history.filter((item) => item.role === "user").map((item) => item.content), message].join("\n");
+function normalize(text: string) {
+  return text.toLowerCase().replace(/\s+/g, " ").trim();
 }
 
-function sentences(text: string) {
+function allUserText(history: ChatMessage[], message: string) {
+  return [...history, { role: "user", content: message }]
+    .filter((item) => item.role === "user")
+    .map((item) => item.content)
+    .join("\n");
+}
+
+function recentUserText(history: ChatMessage[], message: string) {
+  return [...history, { role: "user", content: message }]
+    .filter((item) => item.role === "user")
+    .slice(-3)
+    .map((item) => item.content)
+    .join("\n");
+}
+
+function sentenceWith(text: string, patterns: RegExp[]) {
   return text
     .split(/(?<=[.!?])\s+|\n+/)
     .map((item) => item.trim())
-    .filter(Boolean);
-}
-
-function firstSentence(text: string, pattern: RegExp) {
-  return sentences(text).find((sentence) => pattern.test(sentence));
-}
-
-function latestSentence(text: string, pattern: RegExp) {
-  return sentences(text).reverse().find((sentence) => pattern.test(sentence));
-}
-
-function detectScenario(text: string) {
-  if (/(lead|enquir|inquir).{0,40}(track|manage|miss|follow)|whatsapp.{0,40}(lead|enquir|inquir|track|follow)/i.test(text)) {
-    return scenarios.find((scenario) => scenario.type === "CRM system")!;
-  }
-
-  if (/(field team|mobile|android|ios|\bapp\b|play store|app store)/i.test(text)) {
-    return scenarios.find((scenario) => scenario.type === "Mobile app")!;
-  }
-
-  if (/(automat|manual|workflow|approval|reminder|repeated|daily report)/i.test(text)) {
-    return scenarios.find((scenario) => scenario.type === "Business automation")!;
-  }
-
-  return scenarios.find((scenario) => scenario.patterns.some((pattern) => pattern.test(text)));
-}
-
-function extractList(text: string, options: string[]) {
-  return options.filter((option) => new RegExp(`\\b${option.replace(" ", "[- ]?")}\\b`, "i").test(text));
-}
-
-function extractProfile(text: string): Profile {
-  const scenario = detectScenario(text);
-
-  return {
-    projectType: scenario?.type ?? "Custom software",
-    business: firstSentence(text, /(business|company|agency|clinic|school|coaching|class|institute|restaurant|shop|store|service|manufacturing|real estate|education|healthcare|finance|travel|logistics)/i),
-    problem: firstSentence(text, /(problem|issue|struggle|need|want|miss|manual|slow|hard|difficult|manage|track|build|create|reduce|improve)/i),
-    users: latestSentence(text, /(customer|client|staff|team|admin|manager|owner|vendor|student|doctor|field|agent|user|employee|people will use|who will use)/i),
-    features: extractList(text, featureWords),
-    integrations: extractList(text, integrationWords),
-    timeline: latestSentence(text, /\b(today|urgent|asap|week|weeks|month|months|day|days|deadline|timeline|launch|soon|quarter|year)\b/i),
-    budget: latestSentence(text, /\b(budget|cost|price|quote|estimate|rs|inr|lakh|lac|thousand|not sure)\b|\d+\s?(k|l)\b/i)
-  };
+    .find((sentence) => patterns.some((pattern) => pattern.test(sentence))) || null;
 }
 
 function extractContact(text: string): Contact {
@@ -178,49 +157,179 @@ function extractContact(text: string): Contact {
     text.match(/(?:my name is|name is|i am|i'm)\s+([a-z][a-z\s]{1,40})/i)?.[1]?.trim() ||
     text.match(/name[:\s]+([a-z][a-z\s]{1,40})/i)?.[1]?.trim();
 
-  return { email, phone, name };
+  return { name, email, phone };
 }
 
-function missingFields(profile: Profile) {
-  const missing: Array<"business" | "problem" | "users" | "features" | "timeline" | "budget"> = [];
-  if (!profile.business) missing.push("business");
-  if (!profile.problem) missing.push("problem");
-  if (!profile.users) missing.push("users");
-  if (profile.features.length === 0) missing.push("features");
-  if (!profile.timeline) missing.push("timeline");
-  if (!profile.budget) missing.push("budget");
-  return missing;
+function extractBudget(text: string) {
+  return (
+    text.match(/(?:budget|cost|price|estimate)\s*(?:is|:|-)?\s*([^,.]{2,30}(?:lakh|lac|k|thousand|inr|rs)?)/i)?.[1]?.trim() ||
+    text.match(/\b(?:rs\.?|inr)\s*([0-9,.]+\s*(?:lakh|lac|k|thousand)?)/i)?.[0]?.trim() ||
+    text.match(/\b[0-9,.]+\s*(?:lakh|lac|k|thousand)\b/i)?.[0]?.trim() ||
+    null
+  );
 }
 
-function questionFor(field: ReturnType<typeof missingFields>[number], profile: Profile) {
-  const questions = {
-    business: "What type of business is this for?",
-    problem: "What is the main problem you want to solve?",
-    users: "Who will use it: customers, team, managers, vendors, or admins?",
-    features: `What must be in version one of this ${profile.projectType}?`,
-    timeline: "When do you want the first version ready?",
-    budget: "Do you have a budget range, or should we keep it open for now?"
+function extractTimeline(text: string) {
+  return (
+    text.match(/(?:timeline|deadline|launch|ready)\s*(?:is|:|-)?\s*([a-z0-9,. ]{2,24}(?:week|weeks|month|months|day|days)?)/i)?.[1]?.trim() ||
+    text.match(/\b(?:asap|urgent|[0-9]+\s*(?:week|weeks|month|months|day|days))\b/i)?.[0]?.trim() ||
+    null
+  );
+}
+
+function extractUsers(text: string) {
+  return (
+    text.match(/(?:users are|used by|for users like)\s+([a-z,\s]{3,60})(?:\.|,| and |$)/i)?.[1]?.trim() ||
+    text.match(/\b(customers|patients|doctors|staff|admins|managers|vendors|students|teachers|field team)\b/i)?.[0] ||
+    null
+  );
+}
+
+function detectProjectType(text: string) {
+  const normalized = normalize(text);
+  const scored = projectSignals
+    .map((signal) => ({
+      signal,
+      score: signal.terms.reduce((total, term) => total + (normalized.includes(term) ? 1 : 0), 0)
+    }))
+    .sort((a, b) => b.score - a.score);
+
+  return scored[0]?.score > 0 ? scored[0].signal : null;
+}
+
+function detectBusinessType(text: string) {
+  const normalized = normalize(text);
+  const match = businessSignals.find((signal) => normalized.includes(signal));
+  if (match) return match;
+
+  const phrase = text.match(/(?:for|my|our)\s+([a-z][a-z\s-]{2,40})(?:\s+(?:business|company|app|website|crm|system))?/i)?.[1];
+  return phrase?.trim() || null;
+}
+
+function extractList(text: string, options: string[]) {
+  const normalized = normalize(text);
+  return options.filter((option) => normalized.includes(option.toLowerCase()));
+}
+
+function inferScope(profile: ConversationProfile) {
+  const score =
+    profile.features.length +
+    profile.integrations.length +
+    (profile.users ? 1 : 0) +
+    (profile.projectType.includes("SaaS") ? 2 : 0);
+
+  if (score >= 7) return "Large build";
+  if (score >= 3) return "Medium build";
+  return "Starter build";
+}
+
+function buildProfile(history: ChatMessage[], message: string): ConversationProfile {
+  const text = allUserText(history, message);
+  const recent = recentUserText(history, message);
+  const project = detectProjectType(text);
+  const contact = extractContact(text);
+  const businessType = detectBusinessType(text);
+  const features = extractList(text, knownFeatures);
+  const integrations = features.filter((feature) =>
+    ["WhatsApp", "email", "Razorpay", "Stripe", "Excel", "Google Sheets"].includes(feature)
+  );
+
+  const problem = sentenceWith(text, [
+    /\bneed\b/i,
+    /\bwant\b/i,
+    /\bproblem\b/i,
+    /\bmanual\b/i,
+    /\bmissing\b/i,
+    /\bslow\b/i,
+    /\bmanage\b/i,
+    /\btrack\b/i,
+    /\bbuild\b/i
+  ]);
+
+  const users = extractUsers(text);
+  const budget = extractBudget(recent);
+  const timeline = extractTimeline(recent);
+
+  const filled = [project, businessType, problem, users, budget, timeline, contact.email || contact.phone].filter(Boolean).length;
+
+  return {
+    projectType: project?.type || "Custom Software",
+    businessType,
+    problem,
+    users,
+    features,
+    integrations,
+    budget,
+    timeline,
+    contact,
+    confidence: Math.min(1, filled / 7)
   };
-
-  return questions[field];
 }
 
-function scenarioFor(profile: Profile) {
-  return scenarios.find((scenario) => scenario.type === profile.projectType);
+function askedAbout(history: ChatMessage[], keywords: string[]) {
+  const assistantText = normalize(
+    history
+      .filter((item) => item.role === "assistant")
+      .map((item) => item.content)
+      .join(" ")
+  );
+
+  return keywords.some((keyword) => assistantText.includes(keyword));
 }
 
-function buildMemo(profile: Profile) {
-  const scenario = scenarioFor(profile);
-  const features = profile.features.length > 0 ? profile.features : scenario?.features ?? ["core workflow", "admin view"];
+function featureSuggestions(profile: ConversationProfile) {
+  const signal = projectSignals.find((item) => item.type === profile.projectType);
+  const pool = signal?.featureHints || ["admin panel", "reports", "roles", "notifications"];
+  const unused = pool.filter((feature) => !profile.features.map((item) => item.toLowerCase()).includes(feature.toLowerCase()));
+  return unused.slice(0, 3);
+}
+
+function nextQuestion(profile: ConversationProfile, history: ChatMessage[]) {
+  const suggestions = featureSuggestions(profile);
+
+  if (!profile.businessType && !askedAbout(history, ["business", "industry"])) {
+    return `What kind of business is this for? If there is a specific workflow, tell me that too.`;
+  }
+
+  if (!profile.problem && !askedAbout(history, ["main problem", "trying to fix"])) {
+    return `What is the main problem you want to fix first?`;
+  }
+
+  if (profile.features.length < 2 && !askedAbout(history, ["features", "version one", "must have"])) {
+    return suggestions.length
+      ? `For version one, should it include ${suggestions.join(", ")}, or something else?`
+      : `What should be included in the first useful version?`;
+  }
+
+  if (!profile.users && !askedAbout(history, ["who will use", "users"])) {
+    return `Who will use it day to day: customers, staff, admins, managers, or another group?`;
+  }
+
+  if (!profile.timeline && !askedAbout(history, ["timeline", "ready", "launch"])) {
+    return `When would you like the first version ready?`;
+  }
+
+  if (!profile.budget && !askedAbout(history, ["budget", "range"])) {
+    return `Do you already have a budget range, or should Rubunoxx suggest options after scope is clear?`;
+  }
+
+  if (!profile.contact.email && !profile.contact.phone) {
+    return `Please share your phone or email so Rubunoxx can save this requirement and follow up.`;
+  }
+
+  return null;
+}
+
+function summaryFor(profile: ConversationProfile) {
+  const features = profile.features.length ? profile.features.join(", ") : "to be finalized";
+  const scope = inferScope(profile);
 
   return [
-    `Requirement memo for Rubynox`,
-    `Project: ${profile.projectType}`,
-    profile.business ? `Business: ${profile.business}` : null,
+    `${profile.businessType || "Business"} needs ${profile.projectType}.`,
     profile.problem ? `Need: ${profile.problem}` : null,
     profile.users ? `Users: ${profile.users}` : null,
-    `Version one: ${features.join(", ")}`,
-    profile.integrations.length > 0 ? `Integrations: ${profile.integrations.join(", ")}` : null,
+    `Features: ${features}.`,
+    `Estimated scope: ${scope}.`,
     profile.timeline ? `Timeline: ${profile.timeline}` : null,
     profile.budget ? `Budget: ${profile.budget}` : null
   ]
@@ -228,74 +337,136 @@ function buildMemo(profile: Profile) {
     .join("\n");
 }
 
-function isReady(profile: Profile, userTurns: number) {
-  const missing = missingFields(profile);
-  return userTurns >= 2 && missing.length <= 2 && Boolean(profile.problem || profile.features.length > 0);
+function memoFor(profile: ConversationProfile) {
+  return [
+    "Requirement memo for Rubunoxx",
+    `Project type: ${profile.projectType}`,
+    profile.businessType ? `Business type: ${profile.businessType}` : null,
+    profile.problem ? `Requirement: ${profile.problem}` : null,
+    profile.users ? `Users: ${profile.users}` : null,
+    profile.features.length ? `Features: ${profile.features.join(", ")}` : null,
+    profile.integrations.length ? `Integrations: ${profile.integrations.join(", ")}` : null,
+    `Estimated scope: ${inferScope(profile)}`,
+    profile.timeline ? `Timeline: ${profile.timeline}` : null,
+    profile.budget ? `Budget: ${profile.budget}` : null,
+    profile.contact.name ? `Name: ${profile.contact.name}` : null,
+    profile.contact.phone ? `Phone: ${profile.contact.phone}` : null,
+    profile.contact.email ? `Email: ${profile.contact.email}` : null
+  ]
+    .filter(Boolean)
+    .join("\n");
 }
 
-async function saveChatLead(profile: Profile, contact: Contact, memo: string) {
-  return saveLead({
-    name: contact.name || "Chatbot Lead",
-    email: contact.email || null,
-    phone: contact.phone || null,
-    company: profile.business || null,
-    projectType: profile.projectType,
-    budget: profile.budget || null,
-    timeline: profile.timeline || null,
-    message: memo,
-    source: "chatbot-requirement-memo"
-  });
+function canSaveRequirement(profile: ConversationProfile) {
+  return Boolean(
+    (profile.contact.email || profile.contact.phone) &&
+      profile.businessType &&
+      profile.problem &&
+      (profile.features.length > 0 || profile.users || profile.timeline || profile.budget)
+  );
+}
+
+function isUnsupported(message: string) {
+  const normalized = normalize(message);
+  const softwareWords = [
+    "website",
+    "app",
+    "crm",
+    "dashboard",
+    "software",
+    "automation",
+    "ai",
+    "api",
+    "portal",
+    "system",
+    "lead",
+    "booking",
+    "admin"
+  ];
+
+  return normalized.length > 20 && !softwareWords.some((word) => normalized.includes(word));
 }
 
 async function buildReply(message: string, history: ChatMessage[]) {
-  const text = userText(history, message);
-  const profile = extractProfile(text);
-  const scenario = scenarioFor(profile);
-  const contact = extractContact(message);
-  const userTurns = history.filter((item) => item.role === "user").length + 1;
-  const ready = isReady(profile, userTurns);
+  const conversationMessages: ChatMessage[] = [...history, { role: "user", content: message }];
+  const profile = buildProfile(history, message);
 
-  if (/^(hi|hello|hey|start)$/i.test(message.trim()) || /not sure/i.test(message)) {
+  if (isUnsupported(message) && profile.confidence < 0.3) {
+    const reply =
+      "I may not have enough project context yet. Would you like to continue on WhatsApp and share the details there?";
+
+    await saveChatConversation({
+      messages: [...conversationMessages, { role: "assistant", content: reply }],
+      projectType: profile.projectType,
+      businessType: profile.businessType,
+      conversationSummary: summaryFor(profile)
+    });
+
     return {
-      reply: "Sure. Tell me your business type and the problem you want to solve.",
+      reply,
       shouldRedirect: false,
-      whatsappUrl: null
+      whatsappUrl: buildWhatsAppUrl("Hi Rubunoxx, I want to discuss my requirement.")
     };
   }
 
-  if (ready && (contact.email || contact.phone)) {
-    const memo = buildMemo(profile);
-    await saveChatLead(profile, contact, memo);
+  if (canSaveRequirement(profile)) {
+    const memo = memoFor(profile);
+    const summary = summaryFor(profile);
+    const conversation = await saveChatConversation({
+      messages: [...conversationMessages, { role: "assistant", content: memo }],
+      name: profile.contact.name || null,
+      email: profile.contact.email || null,
+      phone: profile.contact.phone || null,
+      businessType: profile.businessType,
+      projectType: profile.projectType,
+      conversationSummary: summary,
+      memo
+    });
+
+    await saveRequirement({
+      name: profile.contact.name || "Chatbot Lead",
+      email: profile.contact.email || null,
+      phone: profile.contact.phone || null,
+      company: null,
+      businessType: profile.businessType,
+      projectType: profile.projectType,
+      budget: profile.budget,
+      timeline: profile.timeline,
+      message: profile.problem || summary,
+      conversationSummary: summary,
+      memo,
+      conversationId: conversation.id,
+      features: profile.features,
+      estimatedScope: inferScope(profile),
+      source: "chatbot"
+    });
 
     return {
-      reply: `Memo saved.\n\n${memo}\n\nNext step: continue on WhatsApp with this memo.`,
-      shouldRedirect: true,
+      reply: `Saved. Here is the requirement memo:\n\n${memo}\n\nRubunoxx can continue from this on WhatsApp.`,
+      shouldRedirect: false,
       whatsappUrl: buildWhatsAppUrl(memo)
     };
   }
 
-  if (ready) {
-    const memo = buildMemo(profile);
+  const question = nextQuestion(profile, history);
+  const reply = question
+    ? question
+    : `${summaryFor(profile)}\n\nWould you like to continue on WhatsApp?`;
 
-    return {
-      reply: `I have enough clarity.\n\n${memo}\n\nShare your name and phone/email, and I will save this memo for Rubynox and send you to WhatsApp.`,
-      shouldRedirect: false,
-      whatsappUrl: null
-    };
-  }
-
-  const missing = missingFields(profile);
-  const next = missing[0] ? questionFor(missing[0], profile) : "What should be included in version one?";
-  const features = profile.features.length > 0 ? profile.features.join(", ") : scenario?.features.slice(0, 2).join(", ");
+  await saveChatConversation({
+    messages: [...conversationMessages, { role: "assistant", content: reply }],
+    name: profile.contact.name || null,
+    email: profile.contact.email || null,
+    phone: profile.contact.phone || null,
+    businessType: profile.businessType,
+    projectType: profile.projectType,
+    conversationSummary: summaryFor(profile)
+  });
 
   return {
-    reply:
-      `Looks like: ${profile.projectType}.\n` +
-      `${scenario?.summary ?? "Rubynox can build this as custom software around your workflow."}\n` +
-      (features ? `Possible version one: ${features}.\n` : "") +
-      `Next: ${next}`,
+    reply,
     shouldRedirect: false,
-    whatsappUrl: null
+    whatsappUrl: question ? null : buildWhatsAppUrl(summaryFor(profile))
   };
 }
 
@@ -303,7 +474,7 @@ export async function POST(request: Request) {
   try {
     const body = (await request.json()) as ChatRequest;
     const message = body.message?.trim();
-    const history = Array.isArray(body.history) ? body.history.slice(-12) : [];
+    const history = Array.isArray(body.history) ? body.history.slice(-16) : [];
 
     if (!message) {
       return NextResponse.json({ error: "Message is required." }, { status: 400 });
@@ -311,9 +482,15 @@ export async function POST(request: Request) {
 
     const response = await buildReply(message, history);
     return NextResponse.json(response);
-  } catch {
+  } catch (error) {
+    console.error("Chat route error", error);
     return NextResponse.json(
-      { error: "Unable to process chat request." },
+      {
+        error: "Unable to process chat request.",
+        reply: "I could not process that properly. Would you like to continue on WhatsApp?",
+        shouldRedirect: false,
+        whatsappUrl: buildWhatsAppUrl("Hi Rubunoxx, I want to discuss a requirement.")
+      },
       { status: 500 }
     );
   }

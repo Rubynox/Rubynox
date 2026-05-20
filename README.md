@@ -1,6 +1,6 @@
-# Rubynox Landing Page
+# Rubunoxx Website
 
-Premium dark-themed landing page for a software agency, built with Next.js App Router, TypeScript, Tailwind CSS, Prisma-ready lead storage, and a guided chatbot.
+Software agency website built with Next.js App Router, TypeScript, Tailwind CSS, PostgreSQL, Prisma, a guided chatbot, and lead capture.
 
 ## Run Locally
 
@@ -16,16 +16,25 @@ Open `http://localhost:3000`.
 Create `.env` from `.env.example`.
 
 ```bash
-NEXT_PUBLIC_WHATSAPP_NUMBER=918779636850
-DATABASE_URL="postgresql://postgres:password@localhost:5432/rubynox?schema=public"
+DATABASE_URL="postgresql://USER:PASSWORD@HOST:5432/rubunoxx?schema=public"
+NEXT_PUBLIC_SITE_URL="https://rubunoxx.com"
+NEXT_PUBLIC_WHATSAPP_NUMBER="918779636850"
 ```
 
-`NEXT_PUBLIC_WHATSAPP_NUMBER` should include country code and digits only.
+Optional direct WhatsApp Cloud API notification variables:
 
-## PostgreSQL + Prisma Setup
+```bash
+WHATSAPP_NOTIFY_NUMBER="918779636850"
+WHATSAPP_CLOUD_TOKEN=""
+WHATSAPP_PHONE_NUMBER_ID=""
+```
 
-1. Create a PostgreSQL database named `rubynox`.
-2. Add the connection string to `.env` as `DATABASE_URL`.
+Without WhatsApp Cloud API credentials, the app stores the memo and returns a free `wa.me` fallback link.
+
+## PostgreSQL + Prisma
+
+1. Create a PostgreSQL database.
+2. Add `DATABASE_URL` to `.env`.
 3. Run:
 
 ```bash
@@ -33,73 +42,16 @@ npm run prisma:generate
 npm run prisma:migrate
 ```
 
-The lead model is defined in `prisma/schema.prisma`.
+Tables:
 
-To view submitted leads in a browser:
+- `Lead`
+- `Requirement`
+- `ChatConversation`
 
-```bash
-npm run prisma:studio
-```
-
-Then open the `Lead` table in Prisma Studio.
-
-During local development only, you can also check recent submissions at:
+During local development only, recent leads are available at:
 
 ```text
 http://localhost:3000/api/lead
 ```
 
-If `DATABASE_URL` is not configured, local submissions use temporary in-memory storage for testing and will disappear when the dev server restarts. Add PostgreSQL `DATABASE_URL` to `.env` to persist real entries.
-
-Simple insert example:
-
-```ts
-await prisma.lead.create({
-  data: {
-    name: "Asha",
-    email: "asha@example.com",
-    phone: "+918779636850",
-    company: "Asha Foods",
-    projectType: "Dashboard or analytics",
-    budget: "1L-3L",
-    timeline: "4-6 weeks",
-    message: "Need a dashboard",
-    source: "landing-page-contact-form"
-  }
-});
-```
-
-MongoDB is not used in this project. Lead storage is wired for PostgreSQL with Prisma.
-
-## Project Structure
-
-```text
-app/
-  api/
-    chat/route.ts
-    lead/route.ts
-  globals.css
-  layout.tsx
-  page.tsx
-components/
-  ai-assist-section.tsx
-  case-studies.tsx
-  chatbot.tsx
-  final-cta.tsx
-  fit-section.tsx
-  hero.tsx
-  process-section.tsx
-  project-requirement-form.tsx
-  services.tsx
-  site-header.tsx
-  sticky-whatsapp.tsx
-lib/
-  leads.ts
-  prisma.ts
-  utils.ts
-  whatsapp.ts
-api/
-  README.md
-prisma/
-  schema.prisma
-```
+If `DATABASE_URL` is not configured, local submissions use temporary in-memory storage for testing.

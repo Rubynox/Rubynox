@@ -8,15 +8,72 @@ datasource db {
 }
 
 model Lead {
-  id          String   @id @default(cuid())
-  name        String
-  email       String?
-  phone       String?
-  company     String?
-  projectType String?
-  budget      String?
-  timeline    String?
-  message     String
-  source      String   @default("website")
-  createdAt   DateTime @default(now())
+  id           String        @id @default(cuid())
+  name         String
+  email        String?
+  phone        String?
+  company      String?
+  businessType String?
+  projectType  String?
+  budget       String?
+  timeline     String?
+  message      String
+  source       String        @default("website")
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+  requirements Requirement[]
+
+  @@index([createdAt])
+  @@index([email])
+  @@index([phone])
+  @@map("leads")
+}
+
+model Requirement {
+  id                  String            @id @default(cuid())
+  leadId              String?
+  conversationId      String?
+  name                String?
+  email               String?
+  phone               String?
+  company             String?
+  businessType        String?
+  projectType         String?
+  budget              String?
+  timeline            String?
+  requirement         String
+  features            String[]
+  estimatedScope      String?
+  conversationSummary String
+  memo                String
+  source              String            @default("website")
+  createdAt           DateTime          @default(now())
+  updatedAt           DateTime          @updatedAt
+  lead                Lead?             @relation(fields: [leadId], references: [id], onDelete: SetNull)
+  conversation        ChatConversation? @relation(fields: [conversationId], references: [id], onDelete: SetNull)
+
+  @@index([createdAt])
+  @@index([projectType])
+  @@index([conversationId])
+  @@map("requirements")
+}
+
+model ChatConversation {
+  id                  String        @id @default(cuid())
+  name                String?
+  email               String?
+  phone               String?
+  businessType        String?
+  projectType         String?
+  conversationSummary String?
+  memo                String?
+  messages            Json
+  createdAt           DateTime      @default(now())
+  updatedAt           DateTime      @updatedAt
+  requirements        Requirement[]
+
+  @@index([createdAt])
+  @@index([phone])
+  @@index([email])
+  @@map("chatbot_conversations")
 }

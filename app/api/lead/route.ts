@@ -1,11 +1,12 @@
 import { NextResponse } from "next/server";
-import { getRecentLeads, saveLead } from "@/lib/leads";
+import { buildRequirementMemo, getRecentLeads, saveRequirement } from "@/lib/leads";
 
 type LeadRequest = {
   name?: string;
   email?: string;
   phone?: string;
   company?: string;
+  businessType?: string;
   projectType?: string;
   budget?: string;
   timeline?: string;
@@ -14,14 +15,15 @@ type LeadRequest = {
 };
 
 const projectTypes = new Set([
-  "Website / web app",
-  "Mobile app",
-  "SaaS product",
-  "CRM system",
-  "Dashboard",
-  "AI automation",
-  "API integration",
-  "Custom software"
+  "Web Development",
+  "Mobile App Development",
+  "AI Integration",
+  "Business Automation",
+  "CRM Systems",
+  "Dashboard Development",
+  "SaaS Development",
+  "API Integrations",
+  "Custom Software"
 ]);
 
 function isValidEmail(email: string) {
@@ -73,19 +75,26 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "Select a valid project type." }, { status: 400 });
     }
 
-    const lead = await saveLead({
+    const requirementInput = {
       name,
       email,
       phone,
       company: body.company?.trim() || null,
+      businessType: body.businessType?.trim() || body.company?.trim() || null,
       projectType,
       budget: body.budget?.trim() || null,
       timeline: body.timeline?.trim() || null,
       message,
       source: body.source?.trim() || "project-requirement-form"
+    };
+
+    const result = await saveRequirement({
+      ...requirementInput,
+      conversationSummary: `${name} needs ${projectType || "software help"}. ${message}`,
+      memo: buildRequirementMemo(requirementInput)
     });
 
-    return NextResponse.json({ ok: true, lead });
+    return NextResponse.json({ ok: true, lead: result.lead, notification: result.notification });
   } catch {
     return NextResponse.json(
       { error: "Unable to save lead." },

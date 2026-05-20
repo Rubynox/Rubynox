@@ -1,7 +1,7 @@
 "use client";
 
 import { FormEvent, useEffect, useMemo, useRef, useState } from "react";
-import { Bot, Loader2, MessageCircle, Send, X } from "lucide-react";
+import { Bot, Loader2, Send, Sparkles, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { buildWhatsAppUrl } from "@/lib/whatsapp";
 
@@ -17,23 +17,23 @@ type ChatResponse = {
 };
 
 const starters = ["I need a website", "CRM for leads", "Automate reports", "Not sure yet"];
+const storageKey = "rubunoxx-chat-session";
+const openingMessage: Message = {
+  role: "assistant",
+  content:
+    "Hi, I am the Rubunoxx assistant. Tell me what you want to build or what problem you want to solve. I will ask a few questions and create a simple requirement memo."
+};
 
 export function Chatbot() {
   const [open, setOpen] = useState(false);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
-  const [messages, setMessages] = useState<Message[]>([
-    {
-      role: "assistant",
-      content:
-        "Hi, I am the Rubynox assistant. Tell me what you want to build or what problem you want to solve. I will help you clarify the project type, useful first-version features, budget/timeline factors, and whether Rubynox should build a website, CRM, dashboard, automation, mobile app, SaaS product, API integration, or AI support tool."
-    }
-  ]);
+  const [messages, setMessages] = useState<Message[]>([openingMessage]);
   const messagesRef = useRef<HTMLDivElement>(null);
   const endRef = useRef<HTMLDivElement>(null);
 
   const fallbackUrl = useMemo(
-    () => buildWhatsAppUrl("Hi Rubynox, I have a requirement. Let's discuss it."),
+    () => buildWhatsAppUrl("Hi Rubunoxx, I have a requirement. Let's discuss it."),
     []
   );
 
@@ -44,6 +44,28 @@ export function Chatbot() {
 
     return () => window.cancelAnimationFrame(frame);
   }, [messages, loading]);
+
+  useEffect(() => {
+    try {
+      const saved = sessionStorage.getItem(storageKey);
+      if (!saved) return;
+
+      const parsed = JSON.parse(saved) as Message[];
+      if (Array.isArray(parsed) && parsed.every((item) => item.role && item.content)) {
+        setMessages(parsed.slice(-18));
+      }
+    } catch {
+      sessionStorage.removeItem(storageKey);
+    }
+  }, []);
+
+  useEffect(() => {
+    try {
+      sessionStorage.setItem(storageKey, JSON.stringify(messages.slice(-18)));
+    } catch {
+      // Session storage can be unavailable in private browser modes.
+    }
+  }, [messages]);
 
   async function submitMessage(text: string) {
     const message = text.trim();
@@ -60,6 +82,9 @@ export function Chatbot() {
         body: JSON.stringify({ message, history: messages.slice(-8) })
       });
       const data = (await response.json()) as ChatResponse;
+      if (!response.ok && !data.reply) {
+        throw new Error("Chat request failed");
+      }
 
       setMessages((current) => [...current, { role: "assistant", content: data.reply }]);
 
@@ -96,25 +121,26 @@ export function Chatbot() {
         type="button"
         onClick={() => setOpen(true)}
         className={cn(
-          "focus-ring fixed bottom-6 right-6 z-40 flex h-14 w-14 items-center justify-center rounded-full",
-          "border border-line bg-accent text-white shadow-glow transition hover:scale-105 hover:bg-accent-soft"
+          "focus-ring fixed bottom-24 right-5 z-40 flex h-14 min-w-14 items-center justify-center rounded-2xl px-4",
+          "border border-accent/30 bg-card/95 text-accent shadow-[0_18px_46px_rgb(var(--shadow-color)/0.18)] backdrop-blur-xl transition hover:-translate-y-0.5 hover:border-accent/70 hover:bg-accent hover:text-accent-contrast"
         )}
-        aria-label="Open Rubynox chat"
+        aria-label="Open Rubunoxx chat"
       >
-        <MessageCircle className="h-6 w-6" />
+        <Sparkles className="h-5 w-5" />
+        <span className="ml-2 hidden text-sm font-semibold sm:inline">AI Assistant</span>
       </button>
 
       {open ? (
-        <div className="fixed inset-x-3 bottom-40 z-50 mx-auto max-w-md sm:inset-x-auto sm:bottom-24 sm:right-6 sm:w-[28rem]">
-          <div className="flex max-h-[calc(100vh-11rem)] flex-col overflow-hidden rounded-lg border border-line bg-card/95 shadow-2xl backdrop-blur-xl sm:max-h-[38rem]">
+        <div className="fixed inset-x-3 bottom-40 z-50 mx-auto max-w-md sm:inset-x-auto sm:bottom-24 sm:right-5 sm:w-[28rem]">
+          <div className="flex max-h-[calc(100vh-11rem)] flex-col overflow-hidden rounded-xl border border-line bg-card/95 shadow-2xl backdrop-blur-xl sm:max-h-[38rem]">
             <div className="flex items-center justify-between border-b border-line px-4 py-4 sm:px-5">
               <div className="flex min-w-0 items-center gap-3">
                 <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-accent/15 text-accent-soft">
                   <Bot className="h-5 w-5" />
                 </span>
                 <div className="min-w-0">
-                  <p className="truncate font-semibold text-ink">Rubynox Assistant</p>
-                  <p className="truncate text-xs text-muted">Services, pricing, timelines, and next steps</p>
+                  <p className="truncate font-semibold text-ink">Rubunoxx Assistant</p>
+                  <p className="truncate text-xs text-muted">Services, budget, timeline, and next steps</p>
                 </div>
               </div>
               <button

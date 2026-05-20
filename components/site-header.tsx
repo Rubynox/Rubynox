@@ -1,117 +1,127 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
-import { MessageCircle, Menu, X } from "lucide-react";
+import { usePathname } from "next/navigation";
+import { ArrowUpRight, Menu, X } from "lucide-react";
 import { buildWhatsAppUrl } from "@/lib/whatsapp";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { Logo } from "@/components/logo";
+import { cn } from "@/lib/utils";
 
 const navItems = [
-  { label: "Services", href: "/#services" },
-  { label: "AI", href: "/#ai" },
-  { label: "Process", href: "/#process" },
-  { label: "Case Studies", href: "/#work" },
+  { label: "Home", href: "/" },
   { label: "About", href: "/about" },
-  { label: "Contact", href: "/#contact" }
+  { label: "Services", href: "/services" },
+  { label: "Work", href: "/work" },
+  { label: "Contact", href: "/contact" }
 ];
 
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const pathname = usePathname();
+
+  useEffect(() => {
+    function onScroll() {
+      setScrolled(window.scrollY > 12);
+    }
+
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50">
-      
-      <div className="mx-auto max-w-6xl px-4 py-4 sm:px-6">
+    <header className="fixed left-0 right-0 top-0 z-50">
+      <div className={cn("mx-auto max-w-7xl px-4 transition-all duration-300 sm:px-6 lg:px-8", scrolled ? "py-2.5" : "py-4")}>
         <div
-          className="
-          flex items-center justify-between
-          min-h-[72px]
-          rounded-none sm:rounded-2xl
-          border border-line
-          bg-[rgb(var(--color-card))]/85
-          backdrop-blur-xl
-          px-6
-          shadow-[0_10px_30px_rgba(15,61,94,0.12)]
-        "
+          className={cn(
+            "flex items-center justify-between border border-line bg-card/82 px-3 shadow-card backdrop-blur-2xl transition-all duration-300 sm:rounded-2xl sm:px-5",
+            scrolled ? "min-h-[62px] shadow-[0_18px_50px_rgb(var(--shadow-color)/0.16)]" : "min-h-[76px]"
+          )}
         >
-          
-          {/* Logo */}
-          <Link href="/" className="flex items-center">
+          <Link href="/" className="flex items-center" aria-label="Rubunoxx home">
             <Logo />
           </Link>
 
-          {/* Desktop Nav */}
-          <nav className="hidden md:flex items-center gap-8 text-[15px] text-muted">
-            {navItems.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                className="transition duration-200 hover:text-[rgb(var(--color-accent))]"
-              >
-                {item.label}
-              </Link>
-            ))}
+          <nav className="hidden items-center rounded-full border border-line bg-midnight-soft/45 p-1 text-[14px] font-semibold text-muted md:flex">
+            {navItems.map((item) => {
+              const active = pathname === item.href;
+
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  data-active={active}
+                  className={cn(
+                    "premium-nav-link rounded-full px-4 py-2.5 transition duration-200 hover:bg-card hover:text-accent",
+                    active ? "bg-card text-accent shadow-sm" : ""
+                  )}
+                >
+                  {item.label}
+                </Link>
+              );
+            })}
           </nav>
 
-          <div className="flex items-center gap-3">
-            {/* <ThemeToggle /> */}
+          <div className="flex items-center gap-2 sm:gap-3">
+            <ThemeToggle />
 
             <a
-              href={buildWhatsAppUrl("Hi Rubynox, I want to discuss a requirement.")}
-              className="
-                hidden sm:inline-flex items-center gap-2
-                rounded-full bg-[rgb(var(--color-accent))]
-                px-5 py-2.5 text-sm font-medium text-white
-                transition duration-200
-                hover:bg-[rgb(var(--color-accent-soft))]
-                hover:shadow-[0_6px_20px_rgba(15,61,94,0.25)]
-              "
+              href={buildWhatsAppUrl("Hi Rubunoxx, I want to discuss a requirement.")}
+              className="hidden items-center gap-2 rounded-full bg-accent px-5 py-2.5 text-sm font-semibold text-accent-contrast shadow-sm transition duration-200 hover:-translate-y-0.5 hover:bg-accent-soft sm:inline-flex"
             >
-              <MessageCircle className="h-4 w-4" />
-              WhatsApp
+              Start project
+              <ArrowUpRight className="h-4 w-4" />
             </a>
 
             <button
-              onClick={() => setOpen(!open)}
-              className="inline-flex items-center justify-center rounded-lg border border-line p-2 md:hidden"
+              type="button"
+              onClick={() => setOpen((current) => !current)}
+              className="focus-ring inline-flex h-10 w-10 items-center justify-center rounded-full border border-line bg-card/80 text-ink md:hidden"
+              aria-expanded={open}
+              aria-label="Open menu"
             >
               {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
             </button>
           </div>
-
         </div>
       </div>
 
-      {/* Mobile Menu */}
-      {open && (
-        <div className="mx-auto mt-2 max-w-6xl px-4 md:hidden">
-          <div className="rounded-2xl border border-line bg-[rgb(var(--color-card))] p-6 shadow-xl">
-            <nav className="flex flex-col gap-4 text-sm text-muted">
-              {navItems.map((item) => (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  onClick={() => setOpen(false)}
-                  className="border-b border-line pb-2 last:border-none hover:text-[rgb(var(--color-accent))]"
-                >
-                  {item.label}
-                </Link>
-              ))}
+      {open ? (
+        <div className="mx-auto -mt-1 max-w-7xl px-4 md:hidden">
+          <div className="rounded-2xl border border-line bg-card/96 p-4 shadow-card backdrop-blur-xl">
+            <nav className="flex flex-col text-sm font-semibold text-muted">
+              {navItems.map((item) => {
+                const active = pathname === item.href;
+
+                return (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    onClick={() => setOpen(false)}
+                    className={cn(
+                      "rounded-xl px-3 py-3 transition hover:bg-accent/10 hover:text-accent",
+                      active ? "bg-accent/10 text-accent" : ""
+                    )}
+                  >
+                    {item.label}
+                  </Link>
+                );
+              })}
             </nav>
 
-            <div className="mt-6 border-t border-line pt-6">
-              <a
-                href={buildWhatsAppUrl("Hi Rubynox, I want to discuss a requirement.")}
-                className="flex items-center justify-center gap-2 rounded-full bg-[rgb(var(--color-accent))] px-5 py-3 text-sm font-medium text-white"
-              >
-                <MessageCircle className="h-4 w-4" />
-                Start on WhatsApp
-              </a>
-            </div>
+            <a
+              href={buildWhatsAppUrl("Hi Rubunoxx, I want to discuss a requirement.")}
+              className="mt-4 flex items-center justify-center gap-2 rounded-full bg-accent px-5 py-3 text-sm font-semibold text-accent-contrast"
+            >
+              Start project
+              <ArrowUpRight className="h-4 w-4" />
+            </a>
           </div>
         </div>
-      )}
+      ) : null}
     </header>
   );
 }

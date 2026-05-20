@@ -5,38 +5,34 @@ import { Moon, Sun } from "lucide-react";
 
 type Theme = "light" | "dark";
 
+const storageKey = "rubunoxx-theme";
+
 export function ThemeToggle() {
   const [theme, setTheme] = useState<Theme>("light");
   const [mounted, setMounted] = useState(false);
 
-  // Sync with DOM + localStorage on mount
   useEffect(() => {
-    const stored = localStorage.getItem("rubynox-theme") as Theme | null;
-
-    const systemPrefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-
-    const initialTheme: Theme =
-      stored === "dark" || stored === "light"
-        ? stored
-        : systemPrefersDark
-        ? "dark"
-        : "light";
-
-    document.documentElement.setAttribute("data-theme", initialTheme);
+    const current = document.documentElement.getAttribute("data-theme");
+    const initialTheme: Theme = current === "dark" ? "dark" : "light";
     setTheme(initialTheme);
     setMounted(true);
   }, []);
 
   function toggleTheme() {
     const nextTheme: Theme = theme === "dark" ? "light" : "dark";
-
     document.documentElement.setAttribute("data-theme", nextTheme);
-    localStorage.setItem("rubynox-theme", nextTheme);
+    localStorage.setItem(storageKey, nextTheme);
     setTheme(nextTheme);
   }
 
-  // Prevent hydration mismatch flicker
-  if (!mounted) return null;
+  if (!mounted) {
+    return (
+      <span
+        className="inline-flex h-10 w-10 rounded-full border border-line bg-card/70"
+        aria-hidden="true"
+      />
+    );
+  }
 
   const isDark = theme === "dark";
 
@@ -44,7 +40,7 @@ export function ThemeToggle() {
     <button
       type="button"
       onClick={toggleTheme}
-      className="focus-ring inline-flex h-10 w-10 items-center justify-center rounded-full border border-line bg-card/70 text-ink shadow-sm transition hover:-translate-y-0.5 hover:border-accent/50 hover:text-accent"
+      className="focus-ring inline-flex h-10 w-10 items-center justify-center rounded-full border border-line bg-card/80 text-ink shadow-sm transition hover:-translate-y-0.5 hover:border-accent/50 hover:text-accent"
       aria-label={isDark ? "Switch to light theme" : "Switch to dark theme"}
       title={isDark ? "Light theme" : "Dark theme"}
     >

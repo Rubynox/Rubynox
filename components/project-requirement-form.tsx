@@ -22,21 +22,22 @@ const initialState: FormState = {
   email: "",
   phone: "",
   company: "",
-  projectType: "Website / web app",
+  projectType: "Web Development",
   budget: "",
   timeline: "",
   message: ""
 };
 
 const projectTypes = [
-  "Website / web app",
-  "Mobile app",
-  "SaaS product",
-  "CRM system",
-  "Dashboard",
-  "AI automation",
-  "API integration",
-  "Custom software"
+  "Web Development",
+  "Mobile App Development",
+  "AI Integration",
+  "Business Automation",
+  "CRM Systems",
+  "Dashboard Development",
+  "SaaS Development",
+  "API Integrations",
+  "Custom Software"
 ];
 
 export function ProjectRequirementForm() {
@@ -139,22 +140,22 @@ export function ProjectRequirementForm() {
     }
   }
 
-  const whatsappMessage = `Hi Rubynox, I want to discuss a project requirement.
+  const whatsappMessage = `Hi Rubunoxx, I want to discuss a project requirement.
 Name: ${form.name || "-"}
 Project: ${form.projectType}
 Requirement: ${form.message || "-"}`;
 
   return (
-    <section id="contact" className="border-t border-line py-20 sm:py-24">
+    <section id="contact" className="stacked-section stacked-section-muted py-20 sm:py-24">
       <div className="section-shell grid gap-10 lg:grid-cols-[0.88fr_1.12fr] lg:items-start">
         <div className="lg:sticky lg:top-28">
-          <p className="text-sm font-medium uppercase tracking-[0.28em] text-accent-soft">Contact</p>
+          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-accent-soft">Contact</p>
           <h2 className="mt-4 text-3xl font-semibold tracking-tight text-ink sm:text-5xl">
-            Share your requirement. We will turn it into a clear next step.
+            Share your requirement.
           </h2>
           <p className="mt-5 text-base leading-7 text-muted">
             Tell us what you need, the kind of system you are planning, and how we can reach you.
-            Your details are saved securely through the lead API and can be connected to PostgreSQL with Prisma.
+            Rubunoxx will review it and suggest a clear first step.
           </p>
 
           <div className="mt-8 space-y-4 text-sm leading-6 text-muted">
@@ -171,7 +172,7 @@ Requirement: ${form.message || "-"}`;
           </div>
         </div>
 
-        <form onSubmit={onSubmit} className="min-w-0 rounded-2xl border border-line bg-card/95 p-4 shadow-card sm:p-7">
+        <form onSubmit={onSubmit} className="min-w-0 rounded-xl border border-line bg-card/95 p-4 shadow-card sm:p-7">
           <div className="grid min-w-0 gap-4 sm:grid-cols-2">
             <label className="min-w-0 space-y-2 text-sm text-muted">
               <span>Name</span>
@@ -307,7 +308,7 @@ Requirement: ${form.message || "-"}`;
 
           {status === "success" ? (
             <p className="mt-4 rounded-lg border border-emerald-400/25 bg-emerald-400/10 px-4 py-3 text-sm text-emerald-700">
-              Requirement received. Rubynox will review it and contact you soon.
+              Requirement received. Rubunoxx will review it and contact you soon.
             </p>
           ) : null}
 
@@ -324,7 +325,7 @@ Requirement: ${form.message || "-"}`;
               className="focus-ring inline-flex items-center justify-center gap-2 rounded-full bg-accent px-6 py-3 text-sm font-semibold text-white transition hover:bg-accent-soft disabled:cursor-not-allowed disabled:opacity-70"
             >
               {status === "loading" ? <Loader2 className="h-4 w-4 animate-spin" /> : <Send className="h-4 w-4" />}
-              Submit Requirement
+              Submit requirement
             </button>
             <a
               href={buildWhatsAppUrl(whatsappMessage)}

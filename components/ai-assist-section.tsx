@@ -1,29 +1,30 @@
 import { CheckCircle2 } from "lucide-react";
 
 const points = [
-  "Automate repeated tasks without forcing your team to change everything overnight.",
-  "Reduce manual data entry, lead sorting, follow-ups, and report preparation.",
-  "Use AI where it saves time, with simple controls and a clear handoff to people.",
-  "Connect AI support with WhatsApp, forms, dashboards, CRM records, and internal workflows."
+  "Answer common customer questions quickly.",
+  "Collect lead details before your team joins.",
+  "Reduce manual sorting, reports, and repeated updates.",
+  "Connect with forms, WhatsApp links, dashboards, CRM records, and internal workflows."
 ];
 
 export function AIAssistSection() {
   return (
-    <section id="ai" className="border-t border-line py-20 sm:py-24">
+    <section id="ai" className="stacked-section py-20 sm:py-24">
       <div className="section-shell grid gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
         <div>
-          <p className="text-sm font-medium uppercase tracking-[0.28em] text-accent-soft">AI support</p>
+          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-accent-soft">
+            AI tools
+          </p>
           <h2 className="mt-4 max-w-xl text-3xl font-semibold tracking-tight text-ink sm:text-5xl">
-            Practical AI that helps your team move faster.
+            AI that saves time without adding confusion.
           </h2>
         </div>
 
-        <div className="relative overflow-hidden rounded-2xl border border-line bg-card/95 p-6 shadow-card sm:p-8">
+        <div className="relative overflow-hidden rounded-xl border border-line bg-card/95 p-6 shadow-card sm:p-8">
           <div className="absolute right-0 top-0 h-full w-1 bg-accent" />
-          <p className="text-lg leading-8 text-muted">
-            We treat AI as a support tool, not a replacement for good systems. The goal is simple:
-            less repetitive work, faster decisions, cleaner daily operations, and better response
-            times for customers without making your process harder to manage.
+          <p className="text-base leading-7 text-muted sm:text-lg">
+            We use AI for practical work: faster replies, better lead details, cleaner notes,
+            and simple handoffs to your team.
           </p>
 
           <div className="mt-8 space-y-4">
