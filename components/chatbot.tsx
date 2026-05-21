@@ -16,12 +16,12 @@ type ChatResponse = {
   whatsappUrl: string | null;
 };
 
-const starters = ["I need a website", "CRM for leads", "Automate reports", "Not sure yet"];
+const starters = ["I need a business website", "Improve online presence", "Get more enquiries", "Not sure yet"];
 const storageKey = "rubunoxx-chat-session";
 const openingMessage: Message = {
   role: "assistant",
   content:
-    "Hi, I am the Rubunoxx assistant. Tell me what you want to build or what problem you want to solve. I will ask a few questions and create a simple requirement memo."
+    "Hi, I am the Rubunoxx assistant. Tell me about your business and the online presence you want to create. I will ask a few focused questions and prepare a simple website requirement memo."
 };
 
 export function Chatbot() {
@@ -79,7 +79,7 @@ export function Chatbot() {
       const response = await fetch("/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message, history: messages.slice(-8) })
+        body: JSON.stringify({ message, history: messages.slice(-24) })
       });
       const data = (await response.json()) as ChatResponse;
       if (!response.ok && !data.reply) {
@@ -140,7 +140,7 @@ export function Chatbot() {
                 </span>
                 <div className="min-w-0">
                   <p className="truncate font-semibold text-ink">Rubunoxx Assistant</p>
-                  <p className="truncate text-xs text-muted">Services, budget, timeline, and next steps</p>
+                  <p className="truncate text-xs text-muted">Website goals, pages, leads, and next steps</p>
                 </div>
               </div>
               <button
@@ -195,7 +195,7 @@ export function Chatbot() {
               <input
                 value={input}
                 onChange={(event) => setInput(event.target.value)}
-                placeholder="Describe your requirement or business problem"
+                placeholder="Describe your business or website requirement"
                 className="min-w-0 flex-1 rounded-lg border border-line bg-midnight/50 px-4 py-3 text-sm text-ink placeholder:text-muted focus:border-accent focus:outline-none"
               />
               <button

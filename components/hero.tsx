@@ -6,9 +6,9 @@ import Link from "next/link";
 import { buildWhatsAppUrl } from "@/lib/whatsapp";
 
 const proofPoints = [
-  "Websites, apps, AI tools, and automation",
-  "Clear scope before development starts",
-  "Built for speed, mobile, and daily use"
+  "Website, local SEO, and lead capture",
+  "Clear business positioning before design starts",
+  "Built for mobile visitors and customer enquiries"
 ];
 
 export function Hero() {
@@ -22,7 +22,7 @@ export function Hero() {
             transition={{ duration: 0.45 }}
             className="inline-flex rounded-full border border-accent/15 bg-card px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-accent shadow-sm"
           >
-            Rubunoxx software company
+            Online presence for growing businesses
           </motion.p>
 
           <motion.h1
@@ -31,7 +31,7 @@ export function Hero() {
             transition={{ duration: 0.5, delay: 0.08 }}
             className="mt-6 max-w-4xl text-4xl font-semibold leading-[1.06] tracking-tight text-ink sm:text-6xl lg:text-7xl"
           >
-            Software that makes business work easier.
+            Build a clear online presence for your business.
           </motion.h1>
 
           <motion.p
@@ -40,8 +40,8 @@ export function Hero() {
             transition={{ duration: 0.5, delay: 0.16 }}
             className="mt-6 max-w-2xl text-base leading-7 text-muted sm:text-lg"
           >
-            We build websites, apps, AI tools, dashboards, CRM systems, and automation that save
-            time, capture leads, and support daily operations.
+            Rubunoxx creates fast business websites, service pages, lead forms, and practical AI
+            support so customers can find you, understand you, and contact you with confidence.
           </motion.p>
 
           <motion.div
@@ -55,7 +55,7 @@ export function Hero() {
               className="group focus-ring inline-flex items-center justify-center gap-2 rounded-full bg-accent px-6 py-3 text-sm font-semibold text-accent-contrast shadow-card transition duration-300 hover:-translate-y-0.5 hover:bg-accent-soft"
             >
               <MessageCircle className="h-4 w-4" />
-              Discuss a project
+              Discuss your website
             </a>
 
             <Link
@@ -79,10 +79,10 @@ export function Hero() {
             <div className="flex items-start justify-between gap-5">
               <div>
                 <p className="text-xs font-semibold uppercase tracking-[0.18em] text-accent">
-                  Business systems
+                  Online presence
                 </p>
                 <h2 className="mt-3 text-2xl font-semibold tracking-tight text-ink">
-                  Clear tools for daily work.
+                  Turn visitors into enquiries.
                 </h2>
               </div>
               <div className="h-12 w-12 rounded-xl border border-accent/15 bg-accent/10" />
@@ -90,9 +90,9 @@ export function Hero() {
 
             <div className="mt-7 space-y-4">
               {[
-                ["Lead workflow", "Capture, assign, and follow up"],
-                ["Team dashboard", "See status, owners, and priorities"],
-                ["AI support", "Answer questions and hand off serious leads"]
+                ["Service pages", "Explain what you offer and who it is for"],
+                ["Lead capture", "Collect calls, WhatsApp messages, and form enquiries"],
+                ["AI support", "Answer common questions and hand off serious leads"]
               ].map(([title, text]) => (
                 <div key={title} className="rounded-xl border border-line bg-midnight-soft/55 p-4">
                   <div className="flex items-start gap-3">
@@ -108,7 +108,7 @@ export function Hero() {
 
             <div className="mt-6 rounded-xl border border-accent/15 bg-accent/8 p-4">
               <div className="flex items-center justify-between text-sm">
-                <span className="font-medium text-ink">Project clarity</span>
+                <span className="font-medium text-ink">Presence clarity</span>
                 <span className="font-semibold text-accent">92%</span>
               </div>
               <div className="mt-3 h-2 overflow-hidden rounded-full bg-card">

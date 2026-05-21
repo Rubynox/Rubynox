@@ -12,13 +12,14 @@ export function Services() {
               Services
             </p>
             <h2 className="mt-4 text-3xl font-semibold tracking-tight text-ink sm:text-5xl">
-              Software that solves daily business problems.
+              Everything your business needs to look credible online.
             </h2>
           </div>
 
           <div className="max-w-md">
             <p className="text-base leading-7 text-muted">
-              We build websites, apps, AI tools, CRM systems, dashboards, automation, and custom software.
+              We build business websites, landing pages, lead forms, AI assistants, and follow-up
+              workflows that help customers discover and contact you.
             </p>
             <Link
               href="/services"

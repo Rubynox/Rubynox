@@ -1,10 +1,10 @@
 import { CheckCircle2 } from "lucide-react";
 
 const points = [
-  "Answer common customer questions quickly.",
-  "Collect lead details before your team joins.",
-  "Reduce manual sorting, reports, and repeated updates.",
-  "Connect with forms, WhatsApp links, dashboards, CRM records, and internal workflows."
+  "Answer website visitor questions about services, pricing, location, and availability.",
+  "Collect lead details before your team joins the conversation.",
+  "Guide visitors to call, WhatsApp, book, or submit an enquiry.",
+  "Connect with website forms, WhatsApp links, CRM records, and follow-up workflows."
 ];
 
 export function AIAssistSection() {
@@ -16,15 +16,15 @@ export function AIAssistSection() {
             AI tools
           </p>
           <h2 className="mt-4 max-w-xl text-3xl font-semibold tracking-tight text-ink sm:text-5xl">
-            AI that saves time without adding confusion.
+            AI support for your website enquiries.
           </h2>
         </div>
 
         <div className="relative overflow-hidden rounded-xl border border-line bg-card/95 p-6 shadow-card sm:p-8">
           <div className="absolute right-0 top-0 h-full w-1 bg-accent" />
           <p className="text-base leading-7 text-muted sm:text-lg">
-            We use AI for practical work: faster replies, better lead details, cleaner notes,
-            and simple handoffs to your team.
+            We use AI to help your website respond faster, qualify visitors, capture clearer
+            requirements, and hand serious enquiries to your team.
           </p>
 
           <div className="mt-8 space-y-4">

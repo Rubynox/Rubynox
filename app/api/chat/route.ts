@@ -34,8 +34,29 @@ type ConversationProfile = {
 const projectSignals = [
   {
     type: "Web Development",
-    terms: ["website", "site", "landing page", "web app", "seo", "pages"],
-    featureHints: ["service pages", "lead form", "appointment booking", "payment", "admin panel", "blog", "SEO setup"]
+    terms: [
+      "website",
+      "site",
+      "landing page",
+      "web app",
+      "seo",
+      "pages",
+      "online presence",
+      "online",
+      "google",
+      "portfolio",
+      "enquiries",
+      "inquiries"
+    ],
+    featureHints: [
+      "home page",
+      "service pages",
+      "about page",
+      "contact form",
+      "WhatsApp button",
+      "Google Maps",
+      "SEO setup"
+    ]
   },
   {
     type: "Mobile App Development",
@@ -98,6 +119,15 @@ const businessSignals = [
 
 const knownFeatures = [
   "appointment booking",
+  "home page",
+  "service pages",
+  "about page",
+  "contact form",
+  "WhatsApp button",
+  "Google Maps",
+  "SEO setup",
+  "portfolio",
+  "testimonials",
   "patient dashboard",
   "admin panel",
   "doctor panel",
@@ -162,7 +192,7 @@ function extractContact(text: string): Contact {
 
 function extractBudget(text: string) {
   return (
-    text.match(/(?:budget|cost|price|estimate)\s*(?:is|:|-)?\s*([^,.]{2,30}(?:lakh|lac|k|thousand|inr|rs)?)/i)?.[1]?.trim() ||
+    text.match(/(?:budget|cost|price|estimate)\s*(?:is|:|-)?\s*([^,.\n]{2,40}?)(?:\s+and\s+(?:my\s+)?(?:email|phone)|\s+(?:email|phone)|$)/i)?.[1]?.trim() ||
     text.match(/\b(?:rs\.?|inr)\s*([0-9,.]+\s*(?:lakh|lac|k|thousand)?)/i)?.[0]?.trim() ||
     text.match(/\b[0-9,.]+\s*(?:lakh|lac|k|thousand)\b/i)?.[0]?.trim() ||
     null
@@ -270,6 +300,7 @@ function askedAbout(history: ChatMessage[], keywords: string[]) {
   const assistantText = normalize(
     history
       .filter((item) => item.role === "assistant")
+      .filter((item) => item.content.includes("?"))
       .map((item) => item.content)
       .join(" ")
   );
@@ -286,23 +317,36 @@ function featureSuggestions(profile: ConversationProfile) {
 
 function nextQuestion(profile: ConversationProfile, history: ChatMessage[]) {
   const suggestions = featureSuggestions(profile);
+  const isWebsite = profile.projectType === "Web Development";
 
   if (!profile.businessType && !askedAbout(history, ["business", "industry"])) {
-    return `What kind of business is this for? If there is a specific workflow, tell me that too.`;
+    return isWebsite
+      ? `What kind of business is the website for, and which city or market do you serve?`
+      : `What kind of business is this for? If there is a specific workflow, tell me that too.`;
   }
 
   if (!profile.problem && !askedAbout(history, ["main problem", "trying to fix"])) {
-    return `What is the main problem you want to fix first?`;
+    return isWebsite
+      ? `What should the website do first: build trust, explain services, get calls, collect WhatsApp leads, show work, or improve Google search presence?`
+      : `What is the main problem you want to fix first?`;
   }
 
-  if (profile.features.length < 2 && !askedAbout(history, ["features", "version one", "must have"])) {
+  if (profile.features.length < 2 && !askedAbout(history, ["features", "version one", "must have", "sections"])) {
+    if (isWebsite) {
+      return suggestions.length
+        ? `Which website sections do you need first: ${suggestions.join(", ")}, pricing, testimonials, gallery, or something else?`
+        : `Which website sections do you need first: home, services, about, contact, pricing, testimonials, or gallery?`;
+    }
+
     return suggestions.length
       ? `For version one, should it include ${suggestions.join(", ")}, or something else?`
       : `What should be included in the first useful version?`;
   }
 
-  if (!profile.users && !askedAbout(history, ["who will use", "users"])) {
-    return `Who will use it day to day: customers, staff, admins, managers, or another group?`;
+  if (!profile.users && !askedAbout(history, ["who will use", "users", "main customers", "attract"])) {
+    return isWebsite
+      ? `Who are the main customers you want the website to attract?`
+      : `Who will use it day to day: customers, staff, admins, managers, or another group?`;
   }
 
   if (!profile.timeline && !askedAbout(history, ["timeline", "ready", "launch"])) {
@@ -381,7 +425,13 @@ function isUnsupported(message: string) {
     "system",
     "lead",
     "booking",
-    "admin"
+    "admin",
+    "online presence",
+    "google",
+    "seo",
+    "enquiry",
+    "inquiry",
+    "portfolio"
   ];
 
   return normalized.length > 20 && !softwareWords.some((word) => normalized.includes(word));
@@ -474,7 +524,7 @@ export async function POST(request: Request) {
   try {
     const body = (await request.json()) as ChatRequest;
     const message = body.message?.trim();
-    const history = Array.isArray(body.history) ? body.history.slice(-16) : [];
+    const history = Array.isArray(body.history) ? body.history.slice(-32) : [];
 
     if (!message) {
       return NextResponse.json({ error: "Message is required." }, { status: 400 });
