@@ -13,7 +13,7 @@ const proofPoints = [
 
 export function Hero() {
   return (
-    <section className="stacked-section corporate-hero mt-24 flex h-auto min-h-[calc(100dvh-7rem)] flex-col justify-center px-5 py-14 sm:mt-28 sm:px-8 sm:py-20 lg:px-12">
+    <section className="stacked-section corporate-hero mt-16 flex h-auto min-h-[calc(100dvh-7rem)] flex-col justify-center px-5 py-12 sm:mt-20 sm:px-8 sm:py-16 md:mt-24 lg:mt-28 lg:px-12 lg:py-14">
       <div className="hero-layout grid min-w-0 items-center gap-8 lg:gap-10">
         <div className="hero-content min-w-0 max-w-4xl">
           <motion.p
