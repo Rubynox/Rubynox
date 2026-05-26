@@ -294,6 +294,40 @@ html[data-theme="dark"] .site-footer-inverse a:hover {
   }
 }
 
+@media (hover: none) and (pointer: coarse) and (max-width: 1100px) {
+  .corporate-hero {
+    min-height: auto;
+    justify-content: flex-start;
+    padding-block: 2.25rem;
+  }
+
+  .corporate-hero .hero-layout {
+    align-items: start;
+    gap: 1.75rem;
+  }
+
+  .corporate-hero .hero-title {
+    max-width: 42rem;
+    font-size: clamp(2.25rem, 7vw, 3.5rem);
+    line-height: 1.08;
+  }
+
+  .corporate-hero .hero-copy {
+    max-width: 40rem;
+    font-size: 1rem;
+    line-height: 1.65;
+  }
+
+  .corporate-hero .hero-card {
+    margin-inline: 0;
+    max-width: 100%;
+  }
+
+  .corporate-hero .hero-proof {
+    margin-top: 1.75rem;
+  }
+}
+
 @media (max-width: 920px), (max-height: 520px) {
   .stacked-section {
     overflow: hidden;

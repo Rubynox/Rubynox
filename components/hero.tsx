@@ -14,7 +14,7 @@ const proofPoints = [
 export function Hero() {
   return (
     <section className="stacked-section corporate-hero mt-24 flex min-h-[calc(100vh-7rem)] flex-col justify-center px-5 py-16 sm:mt-28 sm:px-8 sm:py-20 lg:px-12">
-      <div className="grid items-center gap-10 lg:grid-cols-[1.05fr_0.95fr]">
+      <div className="hero-layout grid items-center gap-10 lg:grid-cols-[1.05fr_0.95fr]">
         <div className="max-w-4xl">
           <motion.p
             initial={{ opacity: 0, y: 8 }}
@@ -29,7 +29,7 @@ export function Hero() {
             initial={{ opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.08 }}
-            className="mt-6 max-w-4xl text-4xl font-semibold leading-[1.06] tracking-tight text-ink sm:text-6xl lg:text-7xl"
+            className="hero-title mt-6 max-w-4xl text-4xl font-semibold leading-[1.06] tracking-tight text-ink sm:text-6xl lg:text-7xl"
           >
             We build the digital presence growing businesses deserve.
           </motion.h1>
@@ -38,7 +38,7 @@ export function Hero() {
             initial={{ opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.16 }}
-            className="mt-6 max-w-2xl text-base leading-7 text-muted sm:text-lg"
+            className="hero-copy mt-6 max-w-2xl text-base leading-7 text-muted sm:text-lg"
           >
             From high-converting corporate websites to custom digital platforms, we help your
             business establish a powerful, scalable online presence.
@@ -72,7 +72,7 @@ export function Hero() {
           initial={{ opacity: 0, y: 18 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.55, delay: 0.22 }}
-          className="relative mx-auto w-full max-w-md lg:max-w-none"
+          className="hero-card relative mx-auto w-full max-w-md lg:max-w-none"
           aria-hidden="true"
         >
           <div className="rounded-2xl border border-line bg-card/95 p-5 shadow-card sm:p-6">
@@ -123,7 +123,7 @@ export function Hero() {
         initial={{ opacity: 0, y: 8 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.45, delay: 0.32 }}
-        className="mt-12 grid gap-4 rounded-xl border border-line bg-card/80 p-4 text-sm text-muted shadow-sm sm:grid-cols-3 sm:p-5"
+        className="hero-proof mt-12 grid gap-4 rounded-xl border border-line bg-card/80 p-4 text-sm text-muted shadow-sm sm:grid-cols-3 sm:p-5"
       >
         {proofPoints.map((point) => (
           <p key={point} className="flex items-center gap-2">
