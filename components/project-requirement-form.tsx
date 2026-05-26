@@ -1,7 +1,7 @@
 "use client";
 
 import { FormEvent, useEffect, useRef, useState } from "react";
-import { CalendarDays, CheckCircle2, ChevronDown, Loader2, Mail, MessageCircle, Send } from "lucide-react";
+import { CalendarDays, CheckCircle2, ChevronDown, Linkedin, Loader2, Mail, MessageCircle, Send } from "lucide-react";
 import { buildWhatsAppUrl } from "@/lib/whatsapp";
 
 type FormState = {
@@ -200,6 +200,15 @@ Requirement: ${form.message || "-"}`;
             >
               <Mail className="h-4 w-4" />
               Email
+            </a>
+            <a
+              href="https://www.linkedin.com/company/rubynoxx/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="focus-ring inline-flex items-center justify-center gap-2 rounded-full border border-line bg-card/70 px-6 py-3 text-sm font-semibold text-ink transition hover:border-accent/70 hover:text-accent"
+            >
+              <Linkedin className="h-4 w-4" />
+              LinkedIn
             </a>
           </div>
         </div>

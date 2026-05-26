@@ -13,9 +13,9 @@ const proofPoints = [
 
 export function Hero() {
   return (
-    <section className="stacked-section corporate-hero mt-24 flex min-h-[calc(100vh-7rem)] flex-col justify-center px-5 py-16 sm:mt-28 sm:px-8 sm:py-20 lg:px-12">
-      <div className="hero-layout grid items-center gap-10 lg:grid-cols-[1.05fr_0.95fr]">
-        <div className="max-w-4xl">
+    <section className="stacked-section corporate-hero mt-24 flex h-auto min-h-[calc(100dvh-7rem)] flex-col justify-center px-5 py-14 sm:mt-28 sm:px-8 sm:py-20 lg:px-12">
+      <div className="hero-layout grid min-w-0 items-center gap-8 lg:gap-10">
+        <div className="hero-content min-w-0 max-w-4xl">
           <motion.p
             initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
@@ -48,7 +48,7 @@ export function Hero() {
             initial={{ opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.24 }}
-            className="mt-9 flex flex-col gap-3 sm:flex-row"
+            className="hero-actions mt-9 flex flex-col flex-wrap gap-3 sm:flex-row"
           >
             <a
               href={buildWhatsAppUrl("Hi Rubynoxx, I want to book a free consultation.")}
@@ -72,7 +72,7 @@ export function Hero() {
           initial={{ opacity: 0, y: 18 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.55, delay: 0.22 }}
-          className="hero-card relative mx-auto w-full max-w-md lg:max-w-none"
+          className="hero-card relative mx-auto min-w-0 w-full max-w-md lg:max-w-none"
           aria-hidden="true"
         >
           <div className="rounded-2xl border border-line bg-card/95 p-5 shadow-card sm:p-6">

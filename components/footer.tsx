@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Mail, MessageCircle, Phone } from "lucide-react";
+import { Linkedin, Mail, MessageCircle, Phone } from "lucide-react";
 import { buildWhatsAppUrl } from "@/lib/whatsapp";
 
 export function Footer() {
@@ -54,6 +54,17 @@ export function Footer() {
                 >
                   <MessageCircle className="h-4 w-4" />
                   Chat on WhatsApp
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://www.linkedin.com/company/rubynoxx/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 text-accent transition hover:text-accent-soft"
+                >
+                  <Linkedin className="h-4 w-4" />
+                  LinkedIn
                 </a>
               </li>
             </ul>
