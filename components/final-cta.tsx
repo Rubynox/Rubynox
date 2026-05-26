@@ -17,7 +17,7 @@ export function FinalCta() {
             Share what you need. We will help you define the first useful version and the next step.
           </p>
           <a
-            href={buildWhatsAppUrl("Hi Rubunoxx, I have a requirement. Let's discuss it.")}
+            href={buildWhatsAppUrl("Hi Rubynoxx, I have a requirement. Let's discuss it.")}
             className="focus-ring mt-8 inline-flex items-center gap-2 rounded-full bg-accent px-6 py-3 text-sm font-semibold text-accent-contrast transition hover:bg-accent-soft"
           >
             Chat on WhatsApp

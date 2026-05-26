@@ -7,7 +7,7 @@ import { StickyWhatsApp } from "@/components/sticky-whatsapp";
 export const metadata: Metadata = {
   title: "About",
   description:
-    "Learn about Rubunoxx, a software company that builds websites, apps, AI tools, automation, dashboards, CRM systems, and custom software.",
+    "Learn about Rubynoxx, a software company that builds websites, apps, AI tools, automation, dashboards, CRM systems, and custom software.",
   alternates: {
     canonical: "/about"
   }
@@ -32,17 +32,17 @@ export default function AboutPage() {
 
         <div className="page-stack">
           <StackedCardController />
-          <section className="stacked-section mt-24 px-5 pb-16 pt-12 sm:mt-28 sm:px-8 sm:pb-20 sm:pt-16 lg:px-12">
+          <section className="stacked-section page-banner mt-24 px-5 pb-16 pt-12 sm:mt-28 sm:px-8 sm:pb-20 sm:pt-16 lg:px-12">
             <div className="max-w-4xl">
               <p className="text-sm font-semibold uppercase tracking-[0.2em] text-accent-soft">
-                About Rubunoxx
+                About Rubynoxx
               </p>
               <h1 className="mt-4 text-4xl font-semibold tracking-tight text-ink sm:text-6xl">
-                We build useful software for growing businesses.
+                A focused digital partner for business growth.
               </h1>
               <p className="mt-6 max-w-3xl text-lg leading-8 text-muted">
-                Rubunoxx helps business owners and teams turn messy workflows into clear websites,
-                apps, AI tools, dashboards, CRM systems, and automation.
+                Rubynoxx helps business owners establish stronger online presences, clearer digital
+                workflows, and dependable platforms that customers and teams can trust.
               </p>
             </div>
 
@@ -50,14 +50,14 @@ export default function AboutPage() {
               {[
                 {
                   title: "Our Story",
-                  text: "Rubunoxx started with a simple idea: business software should be clear, fast, and useful from day one."
+                  text: "Rubynoxx started with a simple idea: business software should be clear, fast, and useful from day one."
                 },
                 {
                   title: "Mission",
                   text: "We help businesses save time, serve customers better, and make better decisions with reliable software."
                 },
                 {
-                  title: "Why Rubunoxx",
+                  title: "Why Rubynoxx",
                   text: "We keep planning simple, explain trade-offs clearly, and build systems around your real workflow."
                 }
               ].map((item) => (

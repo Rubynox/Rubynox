@@ -1,7 +1,7 @@
 "use client";
 
 import { FormEvent, useEffect, useRef, useState } from "react";
-import { CheckCircle2, ChevronDown, Loader2, MessageCircle, Send } from "lucide-react";
+import { CalendarDays, CheckCircle2, ChevronDown, Loader2, Mail, MessageCircle, Send } from "lucide-react";
 import { buildWhatsAppUrl } from "@/lib/whatsapp";
 
 type FormState = {
@@ -22,25 +22,30 @@ const initialState: FormState = {
   email: "",
   phone: "",
   company: "",
-  projectType: "Web Development",
+  projectType: "Corporate Web Solutions",
   budget: "",
   timeline: "",
   message: ""
 };
 
 const projectTypes = [
-  "Web Development",
-  "Mobile App Development",
-  "AI Integration",
-  "Business Automation",
+  "Corporate Web Solutions",
+  "Web Applications & Systems",
+  "Digital Automation",
+  "Product Engineering",
   "CRM Systems",
+  "ERP Systems",
   "Dashboard Development",
   "SaaS Development",
   "API Integrations",
   "Custom Software"
 ];
 
-export function ProjectRequirementForm() {
+type ProjectRequirementFormProps = {
+  headingLevel?: "h1" | "h2";
+};
+
+export function ProjectRequirementForm({ headingLevel = "h2" }: ProjectRequirementFormProps) {
   const [form, setForm] = useState<FormState>(initialState);
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [error, setError] = useState("");
@@ -140,27 +145,30 @@ export function ProjectRequirementForm() {
     }
   }
 
-  const whatsappMessage = `Hi Rubunoxx, I want to discuss a project requirement.
+  const whatsappMessage = `Hi Rubynoxx, I want to discuss a project requirement.
 Name: ${form.name || "-"}
 Project: ${form.projectType}
 Requirement: ${form.message || "-"}`;
+  const bookCallUrl =
+    process.env.NEXT_PUBLIC_BOOK_CALL_URL ||
+    buildWhatsAppUrl("Hi Rubynoxx, I want to book a free 30-minute consultation.");
+  const Heading = headingLevel;
 
   return (
-    <section id="contact" className="stacked-section stacked-section-muted py-20 sm:py-24">
+    <section id="contact" className="stacked-section corporate-contact py-20 sm:py-24">
       <div className="section-shell grid gap-10 lg:grid-cols-[0.88fr_1.12fr] lg:items-start">
         <div className="lg:sticky lg:top-28">
           <p className="text-sm font-semibold uppercase tracking-[0.2em] text-accent-soft">Contact</p>
-          <h2 className="mt-4 text-3xl font-semibold tracking-tight text-ink sm:text-5xl">
-            Share your requirement.
-          </h2>
+          <Heading className="mt-4 text-3xl font-semibold tracking-tight text-ink sm:text-5xl">
+            Free 30-Minute Consultation
+          </Heading>
           <p className="mt-5 text-base leading-7 text-muted">
-            Tell us what you need, the kind of system you are planning, and how we can reach you.
-            Rubunoxx will review it and suggest a clear first step.
+            Let's discuss your web application, corporate website, or online presence requirements.
           </p>
 
           <div className="mt-8 space-y-4 text-sm leading-6 text-muted">
             {[
-              "We review the requirement and suggest the simplest first version.",
+              "Rubynoxx reviews your requirement and suggests the simplest first version.",
               "We keep communication clear for non-technical business teams.",
               "For urgent projects, WhatsApp is the fastest way to continue."
             ].map((item) => (
@@ -169,6 +177,30 @@ Requirement: ${form.message || "-"}`;
                 <span>{item}</span>
               </div>
             ))}
+          </div>
+
+          <div className="mt-8 grid gap-3">
+            <a
+              href={buildWhatsAppUrl(whatsappMessage)}
+              className="focus-ring inline-flex items-center justify-center gap-2 rounded-full bg-accent px-6 py-3 text-sm font-semibold text-accent-contrast transition hover:bg-accent-soft"
+            >
+              <MessageCircle className="h-4 w-4" />
+              WhatsApp
+            </a>
+            <a
+              href={bookCallUrl}
+              className="focus-ring inline-flex items-center justify-center gap-2 rounded-full border border-accent/35 bg-card px-6 py-3 text-sm font-semibold text-ink transition hover:border-accent/70 hover:text-accent"
+            >
+              <CalendarDays className="h-4 w-4" />
+              Book Call
+            </a>
+            <a
+              href="mailto:hello@rubynoxx.com?subject=Rubynoxx%20project%20consultation"
+              className="focus-ring inline-flex items-center justify-center gap-2 rounded-full border border-line bg-card/70 px-6 py-3 text-sm font-semibold text-ink transition hover:border-accent/70 hover:text-accent"
+            >
+              <Mail className="h-4 w-4" />
+              Email
+            </a>
           </div>
         </div>
 
@@ -308,7 +340,7 @@ Requirement: ${form.message || "-"}`;
 
           {status === "success" ? (
             <p className="mt-4 rounded-lg border border-emerald-400/25 bg-emerald-400/10 px-4 py-3 text-sm text-emerald-700">
-              Requirement received. Rubunoxx will review it and contact you soon.
+              Requirement received. Rubynoxx will review it and contact you soon.
             </p>
           ) : null}
 
@@ -327,13 +359,6 @@ Requirement: ${form.message || "-"}`;
               {status === "loading" ? <Loader2 className="h-4 w-4 animate-spin" /> : <Send className="h-4 w-4" />}
               Submit requirement
             </button>
-            <a
-              href={buildWhatsAppUrl(whatsappMessage)}
-              className="focus-ring inline-flex items-center justify-center gap-2 rounded-full border border-line bg-card/70 px-6 py-3 text-sm font-semibold text-ink transition hover:border-accent/70 hover:text-accent"
-            >
-              <MessageCircle className="h-4 w-4" />
-              Continue on WhatsApp
-            </a>
           </div>
         </form>
       </div>

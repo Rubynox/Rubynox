@@ -1,4 +1,4 @@
-# Rubunoxx Website
+# Rubynoxx Website
 
 Software agency website built with Next.js App Router, TypeScript, Tailwind CSS, PostgreSQL, Prisma, a guided chatbot, and lead capture.
 
@@ -17,7 +17,7 @@ Create `.env` from `.env.example`.
 
 ```bash
 DATABASE_URL="postgresql://USER:PASSWORD@HOST:5432/rubunoxx?schema=public"
-NEXT_PUBLIC_SITE_URL="https://rubunoxx.com"
+NEXT_PUBLIC_SITE_URL="https://rubynoxx.com"
 NEXT_PUBLIC_WHATSAPP_NUMBER="918779636850"
 ```
 

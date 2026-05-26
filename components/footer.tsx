@@ -4,11 +4,11 @@ import { buildWhatsAppUrl } from "@/lib/whatsapp";
 
 export function Footer() {
   return (
-    <footer className="section-band relative border-t border-line">
+    <footer className="site-footer-inverse relative border-t border-line">
       <div className="section-shell py-14">
         <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
           <div>
-            <h3 className="text-lg font-semibold text-ink">Rubunoxx</h3>
+            <h3 className="text-lg font-semibold text-ink">Rubynoxx</h3>
             <p className="mt-4 text-sm leading-relaxed text-muted">
               We build websites, apps, AI tools, dashboards, CRM systems, automation, and custom software.
             </p>
@@ -30,7 +30,7 @@ export function Footer() {
             <ul className="mt-4 space-y-2 text-sm text-muted">
               <li><Link className="transition hover:text-accent" href="/about">About</Link></li>
               <li><Link className="transition hover:text-accent" href="/work">Work</Link></li>
-              <li><Link className="transition hover:text-accent" href="/contact">Contact</Link></li>
+              <li><Link className="transition hover:text-accent" href="/#contact">Contact</Link></li>
             </ul>
           </div>
 
@@ -39,8 +39,8 @@ export function Footer() {
             <ul className="mt-4 space-y-3 text-sm text-muted">
               <li className="flex items-center gap-2">
                 <Mail className="h-4 w-4" />
-                <a className="transition hover:text-accent" href="mailto:hello@rubunoxx.com">
-                  hello@rubunoxx.com
+                <a className="transition hover:text-accent" href="mailto:hello@rubynoxx.com">
+                  hello@rubynoxx.com
                 </a>
               </li>
               <li className="flex items-center gap-2">
@@ -49,7 +49,7 @@ export function Footer() {
               </li>
               <li>
                 <a
-                  href={buildWhatsAppUrl("Hi Rubunoxx, I want to discuss a requirement.")}
+                  href={buildWhatsAppUrl("Hi Rubynoxx, I want to discuss a requirement.")}
                   className="inline-flex items-center gap-2 text-accent transition hover:text-accent-soft"
                 >
                   <MessageCircle className="h-4 w-4" />
@@ -61,7 +61,7 @@ export function Footer() {
         </div>
 
         <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-line pt-6 text-xs text-muted sm:flex-row">
-          <p>Copyright {new Date().getFullYear()} Rubunoxx. All rights reserved.</p>
+          <p>Copyright {new Date().getFullYear()} Rubynoxx. All rights reserved.</p>
           <div className="flex gap-6">
             <Link className="transition hover:text-accent" href="/privacy">Privacy</Link>
             <Link className="transition hover:text-accent" href="/terms">Terms</Link>

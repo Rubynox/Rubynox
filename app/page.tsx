@@ -8,6 +8,7 @@ import { Services } from "@/components/services";
 import { SiteHeader } from "@/components/site-header";
 import { StackedCardController } from "@/components/stacked-card-controller";
 import { StickyWhatsApp } from "@/components/sticky-whatsapp";
+import { TrustSection } from "@/components/trust-section";
 
 export default function HomePage() {
   return (
@@ -21,6 +22,7 @@ export default function HomePage() {
         <div className="homepage-stack">
           <StackedCardController />
           <Hero />
+          <TrustSection />
           <Services />
           <AIAssistSection />
           <ProcessSection />

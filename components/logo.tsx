@@ -29,7 +29,7 @@ export function Logo() {
     <div className="flex h-14 w-[184px] items-center sm:w-[214px]">
       <Image
         src={theme === "dark" ? "/logo-dark.png" : "/logo-light.png"}
-        alt="Rubunoxx"
+        alt="Rubynoxx"
         width={260}
         height={76}
         priority

@@ -5,7 +5,7 @@ import { Moon, Sun } from "lucide-react";
 
 type Theme = "light" | "dark";
 
-const storageKey = "rubunoxx-theme";
+const storageKey = "rubynoxx-theme";
 
 export function ThemeToggle() {
   const [theme, setTheme] = useState<Theme>("light");

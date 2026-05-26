@@ -64,7 +64,7 @@ globalForLeads.rubunoxxMemoryConversations = memoryConversations;
 
 export function buildRequirementMemo(input: RequirementInput) {
   const lines = [
-    "New Rubunoxx requirement",
+    "New Rubynoxx requirement",
     `Name: ${input.name || "Not shared"}`,
     `Phone: ${input.phone || "Not shared"}`,
     `Email: ${input.email || "Not shared"}`,

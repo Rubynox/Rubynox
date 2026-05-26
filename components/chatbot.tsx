@@ -21,7 +21,7 @@ const storageKey = "rubunoxx-chat-session";
 const openingMessage: Message = {
   role: "assistant",
   content:
-    "Hi, I am the Rubunoxx assistant. Tell me about your business and the online presence you want to create. I will ask a few focused questions and prepare a simple website requirement memo."
+    "Hi, I am the Rubynoxx assistant. Tell me about your business and the online presence you want to create. I will ask a few focused questions and prepare a simple website requirement memo."
 };
 
 export function Chatbot() {
@@ -33,7 +33,7 @@ export function Chatbot() {
   const endRef = useRef<HTMLDivElement>(null);
 
   const fallbackUrl = useMemo(
-    () => buildWhatsAppUrl("Hi Rubunoxx, I have a requirement. Let's discuss it."),
+    () => buildWhatsAppUrl("Hi Rubynoxx, I have a requirement. Let's discuss it."),
     []
   );
 
@@ -124,7 +124,7 @@ export function Chatbot() {
           "focus-ring fixed bottom-24 right-5 z-40 flex h-14 min-w-14 items-center justify-center rounded-2xl px-4",
           "border border-accent/30 bg-card/95 text-accent shadow-[0_18px_46px_rgb(var(--shadow-color)/0.18)] backdrop-blur-xl transition hover:-translate-y-0.5 hover:border-accent/70 hover:bg-accent hover:text-accent-contrast"
         )}
-        aria-label="Open Rubunoxx chat"
+        aria-label="Open Rubynoxx chat"
       >
         <Sparkles className="h-5 w-5" />
         <span className="ml-2 hidden text-sm font-semibold sm:inline">AI Assistant</span>
@@ -139,7 +139,7 @@ export function Chatbot() {
                   <Bot className="h-5 w-5" />
                 </span>
                 <div className="min-w-0">
-                  <p className="truncate font-semibold text-ink">Rubunoxx Assistant</p>
+                  <p className="truncate font-semibold text-ink">Rubynoxx Assistant</p>
                   <p className="truncate text-xs text-muted">Website goals, pages, leads, and next steps</p>
                 </div>
               </div>

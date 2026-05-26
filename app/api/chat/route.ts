@@ -354,11 +354,11 @@ function nextQuestion(profile: ConversationProfile, history: ChatMessage[]) {
   }
 
   if (!profile.budget && !askedAbout(history, ["budget", "range"])) {
-    return `Do you already have a budget range, or should Rubunoxx suggest options after scope is clear?`;
+    return `Do you already have a budget range, or should Rubynoxx suggest options after scope is clear?`;
   }
 
   if (!profile.contact.email && !profile.contact.phone) {
-    return `Please share your phone or email so Rubunoxx can save this requirement and follow up.`;
+    return `Please share your phone or email so Rubynoxx can save this requirement and follow up.`;
   }
 
   return null;
@@ -383,7 +383,7 @@ function summaryFor(profile: ConversationProfile) {
 
 function memoFor(profile: ConversationProfile) {
   return [
-    "Requirement memo for Rubunoxx",
+    "Requirement memo for Rubynoxx",
     `Project type: ${profile.projectType}`,
     profile.businessType ? `Business type: ${profile.businessType}` : null,
     profile.problem ? `Requirement: ${profile.problem}` : null,
@@ -455,7 +455,7 @@ async function buildReply(message: string, history: ChatMessage[]) {
     return {
       reply,
       shouldRedirect: false,
-      whatsappUrl: buildWhatsAppUrl("Hi Rubunoxx, I want to discuss my requirement.")
+      whatsappUrl: buildWhatsAppUrl("Hi Rubynoxx, I want to discuss my requirement.")
     };
   }
 
@@ -492,7 +492,7 @@ async function buildReply(message: string, history: ChatMessage[]) {
     });
 
     return {
-      reply: `Saved. Here is the requirement memo:\n\n${memo}\n\nRubunoxx can continue from this on WhatsApp.`,
+      reply: `Saved. Here is the requirement memo:\n\n${memo}\n\nRubynoxx can continue from this on WhatsApp.`,
       shouldRedirect: false,
       whatsappUrl: buildWhatsAppUrl(memo)
     };
@@ -539,7 +539,7 @@ export async function POST(request: Request) {
         error: "Unable to process chat request.",
         reply: "I could not process that properly. Would you like to continue on WhatsApp?",
         shouldRedirect: false,
-        whatsappUrl: buildWhatsAppUrl("Hi Rubunoxx, I want to discuss a requirement.")
+        whatsappUrl: buildWhatsAppUrl("Hi Rubynoxx, I want to discuss a requirement.")
       },
       { status: 500 }
     );

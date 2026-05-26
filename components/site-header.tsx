@@ -14,7 +14,7 @@ const navItems = [
   { label: "About", href: "/about" },
   { label: "Services", href: "/services" },
   { label: "Work", href: "/work" },
-  { label: "Contact", href: "/contact" }
+  { label: "Contact", href: "/#contact" }
 ];
 
 export function SiteHeader() {
@@ -41,13 +41,13 @@ export function SiteHeader() {
             scrolled ? "min-h-[62px] shadow-[0_18px_50px_rgb(var(--shadow-color)/0.16)]" : "min-h-[76px]"
           )}
         >
-          <Link href="/" className="flex items-center" aria-label="Rubunoxx home">
+          <Link href="/" className="flex items-center" aria-label="Rubynoxx home">
             <Logo />
           </Link>
 
           <nav className="hidden items-center rounded-full border border-line bg-midnight-soft/45 p-1 text-[14px] font-semibold text-muted md:flex">
             {navItems.map((item) => {
-              const active = pathname === item.href;
+              const active = item.href === "/" ? pathname === "/" : pathname === item.href;
 
               return (
                 <Link
@@ -69,7 +69,7 @@ export function SiteHeader() {
             <ThemeToggle />
 
             <a
-              href={buildWhatsAppUrl("Hi Rubunoxx, I want to discuss a requirement.")}
+              href={buildWhatsAppUrl("Hi Rubynoxx, I want to discuss a requirement.")}
               className="hidden items-center gap-2 rounded-full bg-accent px-5 py-2.5 text-sm font-semibold text-accent-contrast shadow-sm transition duration-200 hover:-translate-y-0.5 hover:bg-accent-soft sm:inline-flex"
             >
               Start project
@@ -94,7 +94,7 @@ export function SiteHeader() {
           <div className="rounded-2xl border border-line bg-card/96 p-4 shadow-card backdrop-blur-xl">
             <nav className="flex flex-col text-sm font-semibold text-muted">
               {navItems.map((item) => {
-                const active = pathname === item.href;
+                const active = item.href === "/" ? pathname === "/" : pathname === item.href;
 
                 return (
                   <Link
@@ -113,7 +113,7 @@ export function SiteHeader() {
             </nav>
 
             <a
-              href={buildWhatsAppUrl("Hi Rubunoxx, I want to discuss a requirement.")}
+              href={buildWhatsAppUrl("Hi Rubynoxx, I want to discuss a requirement.")}
               className="mt-4 flex items-center justify-center gap-2 rounded-full bg-accent px-5 py-3 text-sm font-semibold text-accent-contrast"
             >
               Start project

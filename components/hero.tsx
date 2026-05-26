@@ -6,14 +6,14 @@ import Link from "next/link";
 import { buildWhatsAppUrl } from "@/lib/whatsapp";
 
 const proofPoints = [
-  "Website, local SEO, and lead capture",
-  "Clear business positioning before design starts",
-  "Built for mobile visitors and customer enquiries"
+  "Corporate-grade web presence",
+  "Clear business positioning",
+  "Built for long-term visibility"
 ];
 
 export function Hero() {
   return (
-    <section className="stacked-section mt-24 flex min-h-[calc(100vh-7rem)] flex-col justify-center px-5 py-16 sm:mt-28 sm:px-8 sm:py-20 lg:px-12">
+    <section className="stacked-section corporate-hero mt-24 flex min-h-[calc(100vh-7rem)] flex-col justify-center px-5 py-16 sm:mt-28 sm:px-8 sm:py-20 lg:px-12">
       <div className="grid items-center gap-10 lg:grid-cols-[1.05fr_0.95fr]">
         <div className="max-w-4xl">
           <motion.p
@@ -22,7 +22,7 @@ export function Hero() {
             transition={{ duration: 0.45 }}
             className="inline-flex rounded-full border border-accent/15 bg-card px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-accent shadow-sm"
           >
-            Online presence for growing businesses
+            Digital presence for growing businesses
           </motion.p>
 
           <motion.h1
@@ -31,7 +31,7 @@ export function Hero() {
             transition={{ duration: 0.5, delay: 0.08 }}
             className="mt-6 max-w-4xl text-4xl font-semibold leading-[1.06] tracking-tight text-ink sm:text-6xl lg:text-7xl"
           >
-            Build a clear online presence for your business.
+            We build the digital presence growing businesses deserve.
           </motion.h1>
 
           <motion.p
@@ -40,8 +40,8 @@ export function Hero() {
             transition={{ duration: 0.5, delay: 0.16 }}
             className="mt-6 max-w-2xl text-base leading-7 text-muted sm:text-lg"
           >
-            Rubunoxx creates fast business websites, service pages, lead forms, and practical AI
-            support so customers can find you, understand you, and contact you with confidence.
+            From high-converting corporate websites to custom digital platforms, we help your
+            business establish a powerful, scalable online presence.
           </motion.p>
 
           <motion.div
@@ -51,18 +51,18 @@ export function Hero() {
             className="mt-9 flex flex-col gap-3 sm:flex-row"
           >
             <a
-              href={buildWhatsAppUrl("Hi Rubunoxx, I want to discuss a requirement.")}
+              href={buildWhatsAppUrl("Hi Rubynoxx, I want to book a free consultation.")}
               className="group focus-ring inline-flex items-center justify-center gap-2 rounded-full bg-accent px-6 py-3 text-sm font-semibold text-accent-contrast shadow-card transition duration-300 hover:-translate-y-0.5 hover:bg-accent-soft"
             >
               <MessageCircle className="h-4 w-4" />
-              Discuss your website
+              Book Free Consultation
             </a>
 
             <Link
-              href="/services"
+              href="/work"
               className="focus-ring inline-flex items-center justify-center gap-2 rounded-full border border-line bg-card px-6 py-3 text-sm font-semibold text-ink shadow-sm transition duration-300 hover:-translate-y-0.5 hover:border-accent/45 hover:text-accent"
             >
-              View services
+              View Our Work
               <ArrowRight className="h-4 w-4" />
             </Link>
           </motion.div>
@@ -79,10 +79,10 @@ export function Hero() {
             <div className="flex items-start justify-between gap-5">
               <div>
                 <p className="text-xs font-semibold uppercase tracking-[0.18em] text-accent">
-                  Online presence
+                  Online presence framework
                 </p>
                 <h2 className="mt-3 text-2xl font-semibold tracking-tight text-ink">
-                  Turn visitors into enquiries.
+                  Build trust before the first conversation.
                 </h2>
               </div>
               <div className="h-12 w-12 rounded-xl border border-accent/15 bg-accent/10" />
@@ -90,9 +90,9 @@ export function Hero() {
 
             <div className="mt-7 space-y-4">
               {[
-                ["Service pages", "Explain what you offer and who it is for"],
-                ["Lead capture", "Collect calls, WhatsApp messages, and form enquiries"],
-                ["AI support", "Answer common questions and hand off serious leads"]
+                ["Corporate positioning", "Present services, proof, and capability with clarity"],
+                ["Conversion pathways", "Guide visitors toward WhatsApp, calls, email, and form enquiries"],
+                ["Scalable foundations", "Prepare your presence for future platforms and automation"]
               ].map(([title, text]) => (
                 <div key={title} className="rounded-xl border border-line bg-midnight-soft/55 p-4">
                   <div className="flex items-start gap-3">
@@ -108,11 +108,11 @@ export function Hero() {
 
             <div className="mt-6 rounded-xl border border-accent/15 bg-accent/8 p-4">
               <div className="flex items-center justify-between text-sm">
-                <span className="font-medium text-ink">Presence clarity</span>
-                <span className="font-semibold text-accent">92%</span>
+                <span className="font-medium text-ink">Presence readiness</span>
+                <span className="font-semibold text-accent">94%</span>
               </div>
               <div className="mt-3 h-2 overflow-hidden rounded-full bg-card">
-                <div className="h-full w-[92%] rounded-full bg-accent" />
+                <div className="h-full w-[94%] rounded-full bg-accent" />
               </div>
             </div>
           </div>
@@ -127,7 +127,7 @@ export function Hero() {
       >
         {proofPoints.map((point) => (
           <p key={point} className="flex items-center gap-2">
-            <span className="h-1.5 w-1.5 rounded-full bg-accent" />
+            <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-accent" />
             {point}
           </p>
         ))}

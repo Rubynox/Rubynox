@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { Footer } from "@/components/footer";
@@ -9,41 +9,45 @@ const inter = Inter({
   display: "swap"
 });
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://rubunoxx.com";
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://rubynoxx.com";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "Rubunoxx | Websites, Apps, AI Tools, and Custom Software",
-    template: "%s | Rubunoxx"
+    default: "Rubynoxx | Corporate Web Solutions & Digital Presence",
+    template: "%s | Rubynoxx"
   },
   description:
-    "Rubunoxx builds websites, apps, AI tools, dashboards, CRM systems, automation, and custom software for growing businesses.",
+    "Rubynoxx builds corporate web solutions, custom digital platforms, and scalable online presence systems for growing businesses.",
   keywords: [
-    "Rubunoxx",
-    "Rubunoxx software company",
-    "Rubunoxx AI agency",
-    "Rubunoxx web development",
+    "Rubynoxx",
+    "Rubynoxx software company",
+    "Rubynoxx corporate web solutions",
+    "Rubynoxx digital presence",
+    "rubynox",
+    "rubunix",
+    "rubunoxx",
     "custom software agency",
+    "web solutions company",
     "business automation agency"
   ],
   alternates: {
     canonical: "/"
   },
   openGraph: {
-    title: "Rubunoxx | Software Company for Websites, Apps, AI, and Automation",
+    title: "Rubynoxx | Corporate Web Solutions & Digital Presence",
     description:
-      "Simple, reliable software for businesses: websites, apps, AI tools, dashboards, CRM systems, and automation.",
+      "Corporate web solutions, custom digital platforms, and scalable online presence systems for growing businesses.",
     url: siteUrl,
-    siteName: "Rubunoxx",
+    siteName: "Rubynoxx",
     locale: "en_US",
     type: "website"
   },
   twitter: {
     card: "summary_large_image",
-    title: "Rubunoxx | Websites, Apps, AI Tools, and Custom Software",
+    title: "Rubynoxx | Corporate Web Solutions & Digital Presence",
     description:
-      "Rubunoxx builds clean software and automation systems that help businesses work better."
+      "Rubynoxx builds corporate web solutions and online presence systems that help businesses grow digitally."
   },
   robots: {
     index: true,
@@ -57,6 +61,12 @@ export const metadata: Metadata = {
   }
 };
 
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover"
+};
+
 export default function RootLayout({
   children
 }: {
@@ -65,7 +75,7 @@ export default function RootLayout({
   const themeScript = `
     (function () {
       try {
-        var stored = localStorage.getItem("rubunoxx-theme");
+        var stored = localStorage.getItem("rubynoxx-theme");
         var theme = stored === "dark" || stored === "light" ? stored : "light";
         document.documentElement.setAttribute("data-theme", theme);
       } catch (e) {
@@ -77,10 +87,14 @@ export default function RootLayout({
   const organizationSchema = {
     "@context": "https://schema.org",
     "@type": "Organization",
-    name: "Rubunoxx",
+    name: "Rubynoxx",
+    legalName: "Rubynoxx",
+    alternateName: ["rubynox", "rubunix", "rubunoxx", "Rubynox", "Rubunix", "Rubunoxx"],
     url: siteUrl,
     description:
-      "Rubunoxx builds websites, apps, AI tools, dashboards, CRM systems, automation, and custom software.",
+      "Rubynoxx builds corporate web solutions, custom digital platforms, and scalable online presence systems.",
+    email: "hello@rubynoxx.com",
+    logo: `${siteUrl}/logo-light.png`,
     contactPoint: {
       "@type": "ContactPoint",
       telephone: "+91-8779636850",

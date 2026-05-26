@@ -14,6 +14,7 @@ export function StackedCardController() {
       const isMobile = window.matchMedia("(max-width: 640px)").matches;
       const viewportHeight = window.innerHeight;
       const mobileHeaderOffset = 86;
+      const bottomBreathingRoom = 12;
 
       cards.forEach((card) => {
         if (!isMobile) {
@@ -22,7 +23,7 @@ export function StackedCardController() {
         }
 
         const cardHeight = card.offsetHeight;
-        const top = Math.min(mobileHeaderOffset, viewportHeight - cardHeight);
+        const top = Math.min(mobileHeaderOffset, viewportHeight - cardHeight - bottomBreathingRoom);
         card.style.setProperty("--stack-sticky-top", `${Math.round(top)}px`);
       });
     }

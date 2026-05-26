@@ -126,6 +126,18 @@ export const services = [
 
 export const caseStudies = [
   {
+    title: "Nisha Engineering Website & Enquiry Flow",
+    link: "https://www.nishaengineering.in/",
+    mobileSummary:
+      "Established a premium corporate online presence for an engineering and manufacturing company with clearer capability positioning and enquiry paths.",
+    problem:
+      "The business needed a credible digital presence that communicated industrial capability, manufacturing confidence, and buyer-ready contact pathways.",
+    solution:
+      "Created a modern corporate website structure with focused service content, manufacturing context, responsive pages, and direct enquiry routes.",
+    result:
+      "Nisha Engineering now has a premium online presence that supports trust, discovery, and manufacturing enquiries."
+  },
+  {
     title: "Service Business CRM",
     mobileSummary: "Centralized leads and follow-ups into one CRM with WhatsApp handoff.",
     problem:
@@ -144,15 +156,5 @@ export const caseStudies = [
       "Created a dashboard with key data, filters, daily summaries, and clear status tracking.",
     result:
       "Reports became easier to read and review meetings became faster."
-  },
-  {
-    title: "AI Assisted Support",
-    mobileSummary: "Handled routine queries and routed serious enquiries to the team.",
-    problem:
-      "Customer questions were repeated often, but important enquiries still needed people.",
-    solution:
-      "Built a guided assistant for common questions, lead details, and WhatsApp handoff.",
-    result:
-      "Routine replies became faster and valuable leads reached the team quickly."
   }
 ];
