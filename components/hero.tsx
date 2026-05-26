@@ -13,9 +13,9 @@ const proofPoints = [
 
 export function Hero() {
   return (
-    <section className="hero-section stacked-section corporate-hero mt-24 flex min-h-[calc(100vh-7rem)] flex-col justify-center px-5 py-16 sm:mt-28 sm:px-8 sm:py-20 lg:px-12">
-      <div className="hero-layout grid items-center gap-10 lg:grid-cols-[1.05fr_0.95fr]">
-        <div className="hero-content-box max-w-4xl">
+    <section className="stacked-section corporate-hero mt-16 flex h-auto min-h-[calc(100dvh-7rem)] flex-col justify-center px-5 py-12 sm:mt-20 sm:px-8 sm:py-16 md:mt-24 lg:mt-28 lg:px-12 lg:py-14">
+      <div className="hero-layout grid min-w-0 items-center gap-8 lg:gap-10">
+        <div className="hero-content min-w-0 max-w-4xl">
           <motion.p
             initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
@@ -48,11 +48,11 @@ export function Hero() {
             initial={{ opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.24 }}
-            className="hero-actions mt-9 flex flex-col gap-3 sm:flex-row"
+            className="hero-actions mt-9 flex flex-col flex-wrap gap-3 sm:flex-row"
           >
             <a
               href={buildWhatsAppUrl("Hi Rubynoxx, I want to book a free consultation.")}
-              className="hero-cta-button group focus-ring inline-flex items-center justify-center gap-2 rounded-full bg-accent px-6 py-3 text-sm font-semibold text-accent-contrast shadow-card transition duration-300 hover:-translate-y-0.5 hover:bg-accent-soft"
+              className="group focus-ring inline-flex items-center justify-center gap-2 rounded-full bg-accent px-6 py-3 text-sm font-semibold text-accent-contrast shadow-card transition duration-300 hover:-translate-y-0.5 hover:bg-accent-soft"
             >
               <MessageCircle className="h-4 w-4" />
               Book Free Consultation
@@ -60,7 +60,7 @@ export function Hero() {
 
             <Link
               href="/work"
-              className="hero-cta-button focus-ring inline-flex items-center justify-center gap-2 rounded-full border border-line bg-card px-6 py-3 text-sm font-semibold text-ink shadow-sm transition duration-300 hover:-translate-y-0.5 hover:border-accent/45 hover:text-accent"
+              className="focus-ring inline-flex items-center justify-center gap-2 rounded-full border border-line bg-card px-6 py-3 text-sm font-semibold text-ink shadow-sm transition duration-300 hover:-translate-y-0.5 hover:border-accent/45 hover:text-accent"
             >
               View Our Work
               <ArrowRight className="h-4 w-4" />
@@ -72,7 +72,7 @@ export function Hero() {
           initial={{ opacity: 0, y: 18 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.55, delay: 0.22 }}
-          className="hero-card relative mx-auto w-full max-w-md lg:max-w-none"
+          className="hero-card relative mx-auto min-w-0 w-full max-w-md lg:max-w-none"
           aria-hidden="true"
         >
           <div className="rounded-2xl border border-line bg-card/95 p-5 shadow-card sm:p-6">
