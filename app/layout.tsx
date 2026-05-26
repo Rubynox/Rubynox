@@ -18,7 +18,7 @@ export const metadata: Metadata = {
     template: "%s | Rubynoxx"
   },
   description:
-    "Rubynoxx builds corporate web solutions, custom digital platforms, and scalable online presence systems for growing businesses.",
+    "Rubynoxx builds premium digital presences, corporate websites, and custom web platforms for growing businesses.",
   keywords: [
     "Rubynoxx",
     "Rubynoxx software company",
@@ -37,7 +37,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Rubynoxx | Corporate Web Solutions & Digital Presence",
     description:
-      "Corporate web solutions, custom digital platforms, and scalable online presence systems for growing businesses.",
+      "Rubynoxx builds premium digital presences, corporate websites, and custom web platforms for growing businesses.",
     url: siteUrl,
     siteName: "Rubynoxx",
     locale: "en_US",
@@ -47,7 +47,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Rubynoxx | Corporate Web Solutions & Digital Presence",
     description:
-      "Rubynoxx builds corporate web solutions and online presence systems that help businesses grow digitally."
+      "Rubynoxx builds premium digital presences, corporate websites, and custom web platforms for growing businesses."
   },
   robots: {
     index: true,
@@ -88,21 +88,16 @@ export default function RootLayout({
     "@context": "https://schema.org",
     "@type": "Organization",
     name: "Rubynoxx",
-    legalName: "Rubynoxx",
-    alternateName: ["rubynox", "rubunix", "rubunoxx", "Rubynox", "Rubunix", "Rubunoxx"],
-    url: siteUrl,
+    alternateName: ["rubynox", "rubunix", "rubunoxx"],
+    url: "https://rubynoxx.com/",
+    logo: "https://rubynoxx.com/logo.png",
     description:
-      "Rubynoxx builds corporate web solutions, custom digital platforms, and scalable online presence systems.",
-    email: "hello@rubynoxx.com",
-    logo: `${siteUrl}/logo-light.png`,
+      "We build the digital presence growing businesses deserve through high-converting corporate websites and digital platforms.",
     contactPoint: {
       "@type": "ContactPoint",
-      telephone: "+91-8779636850",
-      contactType: "sales",
-      areaServed: "IN",
-      availableLanguage: ["English", "Hindi"]
-    },
-    sameAs: []
+      telephone: "",
+      contactType: "customer service"
+    }
   };
 
   return (
