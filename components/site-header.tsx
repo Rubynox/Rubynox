@@ -24,7 +24,7 @@ export function SiteHeader() {
 
   useEffect(() => {
     function onScroll() {
-      setScrolled(window.scrollY > 12);
+      setScrolled(window.scrollY > 20);
     }
 
     onScroll();
@@ -33,12 +33,19 @@ export function SiteHeader() {
   }, []);
 
   return (
-    <header className="fixed left-0 right-0 top-0 z-50">
+    <header
+      className={cn(
+        "fixed left-0 right-0 top-0 z-50 transition-colors duration-300",
+        scrolled ? "border-b border-line bg-card/90 shadow-sm backdrop-blur-md dark:bg-midnight/90" : "bg-transparent"
+      )}
+    >
       <div className={cn("mx-auto max-w-7xl px-4 transition-all duration-300 sm:px-6 lg:px-8", scrolled ? "py-2.5" : "py-4")}>
         <div
           className={cn(
-            "flex items-center justify-between border border-line bg-card/82 px-3 shadow-card backdrop-blur-2xl transition-all duration-300 sm:rounded-2xl sm:px-5",
-            scrolled ? "min-h-[62px] shadow-[0_18px_50px_rgb(var(--shadow-color)/0.16)]" : "min-h-[76px]"
+            "flex items-center justify-between px-3 transition-all duration-300 sm:px-5",
+            scrolled
+              ? "min-h-[62px] border border-line bg-card/90 shadow-[0_18px_50px_rgb(var(--shadow-color)/0.16)] backdrop-blur-2xl dark:bg-midnight/90 sm:rounded-2xl"
+              : "min-h-[76px] border border-transparent bg-transparent shadow-none"
           )}
         >
           <Link href="/" className="flex items-center" aria-label="Rubynoxx home">
