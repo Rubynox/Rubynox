@@ -10,7 +10,7 @@ const proofPoints = [
   "Clear business positioning",
   "Built for long-term visibility"
 ];
-// Surya: Hero section reviewed and updated.
+// Surya: Hero section reviewed and updatedmmmmmmmmm.
 
 export function Hero() {
   return (
