@@ -20,7 +20,13 @@ function readGeminiKeyFromExample() {
 }
 
 function getGeminiApiKey() {
-  return process.env.GEMINI_API_KEY || readGeminiKeyFromExample();
+  const exampleKey = readGeminiKeyFromExample();
+  const envKey = process.env.GEMINI_API_KEY;
+
+  if (exampleKey) return exampleKey;
+  if (envKey && envKey !== "your-gemini-api-key") return envKey;
+
+  return null;
 }
 
 type ChatMessage = {
@@ -160,13 +166,19 @@ function buildRequirementSummary(profile: ScopeProfile) {
 
 function shouldUseDeterministicHandoff(history: ChatMessage[], message: string) {
   const profile = detectScopeProfile(history, message);
+  const text = conversationText(history, message);
   const askedText = history
     .filter((msg) => msg.role === "assistant")
     .map((msg) => msg.content)
     .join(" ")
     .toLowerCase();
+  const hasTimingOrBudget = /\b(week|month|deadline|timeline|launch|urgent|asap|budget|cost|price|range)\b/.test(text);
 
-  return canCompileScope(profile) && (hasClosureIntent(message) || /\bexisting website|spreadsheet|crm|process|replace|improve\b/.test(askedText));
+  return (
+    canCompileScope(profile) &&
+    (hasClosureIntent(message) ||
+      (hasTimingOrBudget && /\bexisting website|spreadsheet|crm|process|replace|improve\b/.test(askedText)))
+  );
 }
 
 function buildWhatsAppHandoff(profile: ScopeProfile) {
@@ -311,11 +323,14 @@ function normalizeModelPayload(payload: ModelPayload) {
 }
 
 export async function POST(request: Request) {
+  let message = "";
+  let history: ChatMessage[] = [];
+
   try {
     const apiKey = getGeminiApiKey();
     const body = await request.json();
-    const message = typeof body.message === "string" ? body.message.trim() : "";
-    const history = sanitizeHistory(body.history);
+    message = typeof body.message === "string" ? body.message.trim() : "";
+    history = sanitizeHistory(body.history);
 
     if (!message) {
       return NextResponse.json({ error: "Message is required." }, { status: 400 });
@@ -462,6 +477,28 @@ Return only valid raw JSON matching this exact frontend schema:
     });
   } catch (error) {
     console.error("AI Route processing error:", error);
+
+    if (message) {
+      const fallbackProfile = detectScopeProfile(history, message);
+      const fallbackHandoff = shouldUseDeterministicHandoff(history, message);
+
+      if (fallbackHandoff) {
+        const handoff = buildWhatsAppHandoff(fallbackProfile);
+
+        return NextResponse.json({
+          reply:
+            "Thanks, I have enough to prepare a brief. I will open WhatsApp with a concise project summary so the Rubynoxx team can continue from here.",
+          shouldRedirect: true,
+          whatsappUrl: handoff.whatsappUrl
+        });
+      }
+
+      return NextResponse.json({
+        reply: buildNonRepeatingReply(history, message),
+        shouldRedirect: false,
+        whatsappUrl: null
+      });
+    }
 
     return NextResponse.json({
       reply:
