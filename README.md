@@ -19,7 +19,10 @@ Create `.env` from `.env.example`.
 DATABASE_URL="postgresql://USER:PASSWORD@HOST:5432/rubunoxx?schema=public"
 NEXT_PUBLIC_SITE_URL="https://rubynoxx.com"
 NEXT_PUBLIC_WHATSAPP_NUMBER="918779636850"
+GEMINI_API_KEY="AIzaSyCq7kMiW24r4JY0dbE3XcqMhOponX6ELyU"
 ```
+
+`GEMINI_API_KEY` is required for the AI chatbot in production. If it is missing or the AI request fails, `/api/chat` automatically falls back to the manual guided chat flow and can still hand off to WhatsApp.
 
 Optional direct WhatsApp Cloud API notification variables:
 

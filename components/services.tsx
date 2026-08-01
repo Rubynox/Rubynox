@@ -16,21 +16,25 @@ export const serviceGroups = [
   {
     title: "Corporate Web Solutions",
     icon: Building2,
+    description: "Professional websites that help businesses look credible, explain services clearly, and turn visitors into enquiries.",
     items: ["Business Websites", "Corporate Platforms", "Landing Pages", "Brand Website Redesign"]
   },
   {
     title: "Web Applications & Systems",
     icon: ServerCog,
+    description: "Custom software that improves workflows, gives teams better visibility, and reduces dependence on spreadsheets.",
     items: ["Custom Business Dashboards", "CRM & ERP Integrations", "Internal Business Tools"]
   },
   {
     title: "Digital Automation",
     icon: Sparkles,
+    description: "Automation that reduces repetitive manual work, missed follow-ups, delayed approvals, and routine status checking.",
     items: ["Workflow & Process Automation", "AI Web Integrations", "Smart Business Ecosystems"]
   },
   {
     title: "Product Engineering",
     icon: Wrench,
+    description: "Structured product development for founders and companies building scalable digital products or internal platforms.",
     items: ["SaaS Platforms", "Custom Applications", "API Solutions"]
   }
 ];
@@ -54,14 +58,14 @@ export function Services() {
               Services
             </p>
             <h2 className="mt-4 text-3xl font-semibold tracking-tight text-ink sm:text-5xl">
-              Expanding your company’s web footprint with structure.
+              Digital solutions built around real business problems.
             </h2>
           </div>
 
           <div className="max-w-md">
             <p className="text-base leading-7 text-muted">
-              Rubynoxx helps businesses move from a basic online listing to a credible corporate
-              presence, connected workflows, and scalable digital platforms.
+              Rubynoxx builds websites, software, automation, and AI solutions that improve credibility,
+              operations, customer response, and decision-making.
             </p>
             <Link
               href="/services"
@@ -86,6 +90,7 @@ export function Services() {
                   <Icon className="h-5 w-5" />
                 </div>
                 <h3 className="mt-5 text-lg font-semibold text-ink">{service.title}</h3>
+                <p className="mt-3 text-sm leading-6 text-muted">{service.description}</p>
                 <ul className="mt-5 space-y-3 text-sm leading-6 text-muted">
                   {service.items.map((item) => (
                     <li key={item} className="flex gap-2">
@@ -105,8 +110,11 @@ export function Services() {
               Who we work with
             </p>
             <h2 className="mt-4 text-3xl font-semibold tracking-tight text-ink sm:text-5xl">
-              Industries We Serve
+              Experience Across Key Industries
             </h2>
+            <p className="mt-5 text-base leading-7 text-muted">
+              Our engineering approach allows us to build custom software for businesses across many industries.
+            </p>
           </div>
 
           <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">

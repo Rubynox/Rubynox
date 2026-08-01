@@ -31,9 +31,16 @@ export function CaseStudies() {
               className="group flex h-full flex-col rounded-xl border border-line bg-card/95 p-5 shadow-card transition duration-300 hover:-translate-y-1 hover:border-accent/50 sm:p-6"
             >
               <div className="flex items-start justify-between gap-4">
-                <h3 className="text-lg font-semibold text-ink">
-                  {study.title}
-                </h3>
+                <div>
+                  {"badge" in study && study.badge ? (
+                    <p className="mb-3 text-xs font-semibold uppercase tracking-[0.16em] text-accent-soft">
+                      {study.badge}
+                    </p>
+                  ) : null}
+                  <h3 className="text-lg font-semibold text-ink">
+                    {study.title}
+                  </h3>
+                </div>
                 <ArrowUpRight className="h-4 w-4 text-muted transition group-hover:text-accent" />
               </div>
               <p className="mt-4 text-sm leading-6 text-muted">

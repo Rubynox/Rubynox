@@ -7,17 +7,17 @@ import { StickyWhatsApp } from "@/components/sticky-whatsapp";
 export const metadata: Metadata = {
   title: "About",
   description:
-    "Learn about Rubynoxx, a software company that builds websites, apps, AI tools, automation, dashboards, CRM systems, and custom software.",
+    "Learn how Rubynoxx builds websites, custom software, AI solutions, automation systems, dashboards, CRM systems, and business platforms.",
   alternates: {
     canonical: "/about"
   }
 };
 
 const values = [
-  "Keep the first version useful and clear.",
-  "Use simple language and honest planning.",
-  "Build systems people can use every day.",
-  "Protect performance, security, and long-term maintainability."
+  "Understand the business problem before recommending technology.",
+  "Keep the first version useful, clear, and realistic.",
+  "Communicate trade-offs in plain language.",
+  "Build systems that are maintainable after launch."
 ];
 
 export default function AboutPage() {
@@ -38,27 +38,27 @@ export default function AboutPage() {
                 About Rubynoxx
               </p>
               <h1 className="mt-4 text-4xl font-semibold tracking-tight text-ink sm:text-6xl">
-                A focused digital partner for business growth.
+                A software company built for business owners who need clarity.
               </h1>
               <p className="mt-6 max-w-3xl text-lg leading-8 text-muted">
-                Rubynoxx helps business owners establish stronger online presences, clearer digital
-                workflows, and dependable platforms that customers and teams can trust.
+                Rubynoxx was started to help growing businesses move from scattered ideas, manual work,
+                and unclear digital presence into practical websites, software, automation, and AI systems.
               </p>
             </div>
 
             <div className="mt-14 grid gap-4 lg:grid-cols-3">
               {[
                 {
-                  title: "Our Story",
-                  text: "Rubynoxx started with a simple idea: business software should be clear, fast, and useful from day one."
+                  title: "Why We Started",
+                  text: "Many businesses know they need better digital systems, but do not know where to start. Rubynoxx exists to make that path clearer."
                 },
                 {
                   title: "Mission",
-                  text: "We help businesses save time, serve customers better, and make better decisions with reliable software."
+                  text: "We build digital solutions that help companies improve operations, communicate better, and grow with reliable technical foundations."
                 },
                 {
-                  title: "Why Rubynoxx",
-                  text: "We keep planning simple, explain trade-offs clearly, and build systems around your real workflow."
+                  title: "How We Work",
+                  text: "We listen first, define the right first version, build in stages, and keep the next decision understandable for the client."
                 }
               ].map((item) => (
                 <article key={item.title} className="rounded-xl border border-line bg-card/95 p-6 shadow-card">
@@ -73,11 +73,15 @@ export default function AboutPage() {
             <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr]">
             <div>
               <p className="text-sm font-semibold uppercase tracking-[0.2em] text-accent-soft">
-                How we work
+                Core principles
               </p>
               <h2 className="mt-4 text-3xl font-semibold tracking-tight text-ink sm:text-5xl">
-                Small steps. Clear reviews. Strong delivery.
+                Technology should make the business easier to run.
               </h2>
+              <p className="mt-5 text-base leading-7 text-muted">
+                We avoid adding complexity for its own sake. Every project should have a clear business reason,
+                a clear user workflow, and a clear path to launch.
+              </p>
             </div>
             <div className="grid gap-4 sm:grid-cols-2">
               {values.map((value) => (
@@ -92,14 +96,15 @@ export default function AboutPage() {
           <section className="stacked-section px-5 py-16 sm:px-8 sm:py-20 lg:px-12">
             <div className="max-w-3xl">
               <p className="text-sm font-semibold uppercase tracking-[0.2em] text-accent-soft">
-                Team style
+                Client collaboration
               </p>
               <h2 className="mt-4 text-3xl font-semibold tracking-tight text-ink sm:text-5xl">
-                A focused software team for business owners.
+                A structured process for non-technical and technical teams.
               </h2>
               <p className="mt-5 text-base leading-7 text-muted">
-                We work like a product partner: understand the problem, plan the first useful version,
-                build carefully, test properly, and keep the next step clear.
+                We work with founders, business owners, and internal teams by translating goals into requirements,
+                requirements into buildable stages, and each stage into reviewable progress. The aim is simple:
+                deliver software that solves the right problem and can keep supporting the business after launch.
               </p>
             </div>
           </section>

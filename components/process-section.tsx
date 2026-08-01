@@ -1,19 +1,19 @@
 const steps = [
   {
-    title: "Understand",
-    description: "We learn your business, users, workflow, and the main problem to solve."
+    title: "Discover",
+    description: "We understand your business, users, workflow, and the result the project needs to create."
   },
   {
     title: "Plan",
-    description: "We define the first useful version, key screens, integrations, timeline, and cost range."
+    description: "We define the first useful version, required features, integrations, timeline, and budget range."
   },
   {
-    title: "Build",
-    description: "We design and develop in clear stages so you can review progress easily."
+    title: "Design & Build",
+    description: "We design and develop in clear stages, with review points so your team can give feedback early."
   },
   {
-    title: "Launch",
-    description: "We test, deploy, connect tools, and help your team start using the system."
+    title: "Launch & Support",
+    description: "We test, deploy, connect tools, and support your team as the system starts being used."
   }
 ];
 
@@ -26,10 +26,10 @@ export function ProcessSection() {
             Process
           </p>
           <h2 className="mt-4 text-3xl font-semibold tracking-tight text-ink sm:text-5xl">
-            A simple way to go from idea to launch.
+            A clear way to move from business problem to working system.
           </h2>
           <p className="mt-5 text-base leading-7 text-muted">
-            We start with the smallest useful version, then improve it with real feedback.
+            We work with you step by step so the project stays practical, understandable, and aligned with business goals.
           </p>
         </div>
 

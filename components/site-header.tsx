@@ -13,7 +13,7 @@ const navItems = [
   { label: "Home", href: "/" },
   { label: "About", href: "/about" },
   { label: "Services", href: "/services" },
-  { label: "Work", href: "/work" },
+  { label: "Case Studies", href: "/work" },
   { label: "Contact", href: "/contact" }
 ];
 
@@ -79,7 +79,7 @@ export function SiteHeader() {
               href={buildWhatsAppUrl("Hi Rubynoxx, I want to discuss a requirement.")}
               className="hidden items-center gap-2 rounded-full bg-accent px-5 py-2.5 text-sm font-semibold text-accent-contrast shadow-sm transition duration-200 hover:-translate-y-0.5 hover:bg-accent-soft sm:inline-flex"
             >
-              Start project
+              Book consultation
               <ArrowUpRight className="h-4 w-4" />
             </a>
 
@@ -123,7 +123,7 @@ export function SiteHeader() {
               href={buildWhatsAppUrl("Hi Rubynoxx, I want to discuss a requirement.")}
               className="mt-4 flex items-center justify-center gap-2 rounded-full bg-accent px-5 py-3 text-sm font-semibold text-accent-contrast"
             >
-              Start project
+              Book consultation
               <ArrowUpRight className="h-4 w-4" />
             </a>
           </div>

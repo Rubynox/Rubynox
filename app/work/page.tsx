@@ -7,9 +7,9 @@ import { StickyWhatsApp } from "@/components/sticky-whatsapp";
 import { caseStudies } from "@/lib/site-data";
 
 export const metadata: Metadata = {
-  title: "Work",
+  title: "Case Studies",
   description:
-    "See Rubynoxx case studies for corporate online presence, engineering websites, CRM systems, operations dashboards, and AI assisted support.",
+    "See Rubynoxx case studies and internal demonstrations for websites, CRM systems, operations dashboards, and business software.",
   alternates: {
     canonical: "/work"
   }
@@ -29,10 +29,10 @@ export default function WorkPage() {
                 Case studies
               </p>
               <h1 className="mt-4 text-4xl font-semibold tracking-tight text-ink sm:text-6xl">
-                Digital presence work with real-world proof.
+                Case studies and practical business software examples.
               </h1>
               <p className="mt-6 max-w-3xl text-lg leading-8 text-muted">
-                A few examples of how Rubynoxx helps companies establish credible web presences and practical business systems.
+                A transparent look at client work and internal demonstrations that show how Rubynoxx approaches real business problems.
               </p>
             </div>
           </section>
@@ -44,13 +44,26 @@ export default function WorkPage() {
                 key={study.title}
                 className="flex h-full flex-col rounded-xl border border-line bg-card/95 p-6 shadow-card"
               >
+                {"badge" in study && study.badge ? (
+                  <p className="mb-3 text-xs font-semibold uppercase tracking-[0.16em] text-accent-soft">
+                    {study.badge}
+                  </p>
+                ) : null}
                 <h2 className="text-xl font-semibold text-ink">{study.title}</h2>
                 <div className="mt-6 space-y-5 text-sm leading-6">
+                  {"industry" in study && study.industry ? (
+                    <div>
+                      <p className="text-xs font-semibold uppercase tracking-[0.16em] text-accent-soft">
+                        Industry
+                      </p>
+                      <p className="mt-2 text-muted">{study.industry}</p>
+                    </div>
+                  ) : null}
                   <div>
                     <p className="text-xs font-semibold uppercase tracking-[0.16em] text-accent-soft">
-                      Problem
+                      Business challenge
                     </p>
-                    <p className="mt-2 text-muted">{study.problem}</p>
+                    <p className="mt-2 text-muted">{"challenge" in study && study.challenge ? study.challenge : study.problem}</p>
                   </div>
                   <div>
                     <p className="text-xs font-semibold uppercase tracking-[0.16em] text-accent-soft">
@@ -58,11 +71,27 @@ export default function WorkPage() {
                     </p>
                     <p className="mt-2 text-muted">{study.solution}</p>
                   </div>
+                  {"technologies" in study && study.technologies?.length ? (
+                    <div>
+                      <p className="text-xs font-semibold uppercase tracking-[0.16em] text-accent-soft">
+                        Technologies
+                      </p>
+                      <p className="mt-2 text-muted">{study.technologies.join(", ")}</p>
+                    </div>
+                  ) : null}
+                  {"timeline" in study && study.timeline ? (
+                    <div>
+                      <p className="text-xs font-semibold uppercase tracking-[0.16em] text-accent-soft">
+                        Timeline
+                      </p>
+                      <p className="mt-2 text-muted">{study.timeline}</p>
+                    </div>
+                  ) : null}
                   <div>
                     <p className="text-xs font-semibold uppercase tracking-[0.16em] text-accent-soft">
-                      Result
+                      Business outcome
                     </p>
-                    <p className="mt-2 font-medium text-ink">{study.result}</p>
+                    <p className="mt-2 font-medium text-ink">{"outcome" in study && study.outcome ? study.outcome : study.result}</p>
                   </div>
                 </div>
                 <div className="flex-1" />

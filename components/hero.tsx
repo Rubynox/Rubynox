@@ -6,9 +6,9 @@ import Link from "next/link";
 import { buildWhatsAppUrl } from "@/lib/whatsapp";
 
 const proofPoints = [
-  "Corporate-grade web presence",
-  "Clear business positioning",
-  "Built for long-term visibility"
+  "Enterprise development experience",
+  "AWS cloud deployment",
+  "Long-term technical support"
 ];
 // Surya: Hero section xxxxxxxxxx.
 
@@ -23,7 +23,7 @@ export function Hero() {
             transition={{ duration: 0.45 }}
             className="inline-flex rounded-full border border-accent/15 bg-card px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-accent shadow-sm"
           >
-            Digital presence for growing businesses
+            Websites, software, automation, and AI
           </motion.p>
 
           <motion.h1
@@ -32,7 +32,7 @@ export function Hero() {
             transition={{ duration: 0.5, delay: 0.08 }}
             className="hero-title mt-6 max-w-4xl text-4xl font-semibold leading-[1.06] tracking-tight text-ink sm:text-6xl lg:text-7xl"
           >
-            We build the digital presence growing businesses deserve.
+            Websites, Custom Software & AI Solutions for Growing Businesses
           </motion.h1>
 
           <motion.p
@@ -41,8 +41,8 @@ export function Hero() {
             transition={{ duration: 0.5, delay: 0.16 }}
             className="hero-copy mt-6 max-w-2xl text-base leading-7 text-muted sm:text-lg"
           >
-            From high-converting corporate websites to custom digital platforms, we help your
-            business establish a powerful, scalable online presence.
+            We design and build professional websites, business software, AI solutions, and automation
+            systems that help companies improve operations, build credibility, and grow with confidence.
           </motion.p>
 
           <motion.div
@@ -56,14 +56,14 @@ export function Hero() {
               className="group focus-ring inline-flex items-center justify-center gap-2 rounded-full bg-accent px-6 py-3 text-sm font-semibold text-accent-contrast shadow-card transition duration-300 hover:-translate-y-0.5 hover:bg-accent-soft"
             >
               <MessageCircle className="h-4 w-4" />
-              Book Free Consultation
+              Book a Consultation
             </a>
 
             <Link
               href="/work"
               className="focus-ring inline-flex items-center justify-center gap-2 rounded-full border border-line bg-card px-6 py-3 text-sm font-semibold text-ink shadow-sm transition duration-300 hover:-translate-y-0.5 hover:border-accent/45 hover:text-accent"
             >
-              View Our Work
+              View Case Studies
               <ArrowRight className="h-4 w-4" />
             </Link>
           </motion.div>
@@ -80,10 +80,10 @@ export function Hero() {
             <div className="flex items-start justify-between gap-5">
               <div>
                 <p className="text-xs font-semibold uppercase tracking-[0.18em] text-accent">
-                  Online presence framework
+                  Business growth framework
                 </p>
                 <h2 className="mt-3 text-2xl font-semibold tracking-tight text-ink">
-                  Build trust before the first conversation.
+                  Build trust, reduce manual work, and prepare for growth.
                 </h2>
               </div>
               <div className="h-12 w-12 rounded-xl border border-accent/15 bg-accent/10" />
@@ -91,9 +91,10 @@ export function Hero() {
 
             <div className="mt-7 space-y-4">
               {[
-                ["Corporate positioning", "Present services, proof, and capability with clarity"],
-                ["Conversion pathways", "Guide visitors toward WhatsApp, calls, email, and form enquiries"],
-                ["Scalable foundations", "Prepare your presence for future platforms and automation"]
+                ["Professional Website", "Build credibility from the first customer visit."],
+                ["Business Automation", "Reduce repetitive manual work and missed follow-ups."],
+                ["AI Integration", "Improve customer support and internal efficiency."],
+                ["Scalable Foundation", "Keep your website and systems ready for future business growth."]
               ].map(([title, text]) => (
                 <div key={title} className="rounded-xl border border-line bg-midnight-soft/55 p-4">
                   <div className="flex items-start gap-3">
@@ -109,7 +110,7 @@ export function Hero() {
 
             <div className="mt-6 rounded-xl border border-accent/15 bg-accent/8 p-4">
               <div className="flex items-center justify-between text-sm">
-                <span className="font-medium text-ink">Presence readiness</span>
+                <span className="font-medium text-ink">Business readiness</span>
                 <span className="font-semibold text-accent">94%</span>
               </div>
               <div className="mt-3 h-2 overflow-hidden rounded-full bg-card">

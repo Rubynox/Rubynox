@@ -10,17 +10,17 @@ export function Footer() {
           <div>
             <h3 className="text-lg font-semibold text-ink">Rubynoxx</h3>
             <p className="mt-4 text-sm leading-relaxed text-muted">
-              We build websites, apps, AI tools, dashboards, CRM systems, automation, and custom software.
+              Building websites, software, automation systems, and AI solutions that help businesses grow.
             </p>
           </div>
 
           <div>
             <h4 className="text-sm font-semibold text-ink">Services</h4>
             <ul className="mt-4 space-y-2 text-sm text-muted">
-              <li><Link className="transition hover:text-accent" href="/services">Web Development</Link></li>
+              <li><Link className="transition hover:text-accent" href="/services">Business Websites</Link></li>
               <li><Link className="transition hover:text-accent" href="/services">Mobile Apps</Link></li>
-              <li><Link className="transition hover:text-accent" href="/services">AI Integration</Link></li>
-              <li><Link className="transition hover:text-accent" href="/services">Automation</Link></li>
+              <li><Link className="transition hover:text-accent" href="/services">AI Solutions</Link></li>
+              <li><Link className="transition hover:text-accent" href="/services">Business Automation</Link></li>
               <li><Link className="transition hover:text-accent" href="/services">Custom Software</Link></li>
             </ul>
           </div>
@@ -29,7 +29,7 @@ export function Footer() {
             <h4 className="text-sm font-semibold text-ink">Company</h4>
             <ul className="mt-4 space-y-2 text-sm text-muted">
               <li><Link className="transition hover:text-accent" href="/about">About</Link></li>
-              <li><Link className="transition hover:text-accent" href="/work">Work</Link></li>
+              <li><Link className="transition hover:text-accent" href="/work">Case Studies</Link></li>
               <li><Link className="transition hover:text-accent" href="/#contact">Contact</Link></li>
             </ul>
           </div>

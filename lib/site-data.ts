@@ -13,15 +13,15 @@ import {
 
 export const services = [
   {
-    title: "Web Development",
+    title: "Corporate Web Solutions",
     slug: "web-development",
     icon: PanelsTopLeft,
-    short: "Fast websites and web apps that explain your business clearly and turn visitors into leads.",
+    short: "Professional websites that build credibility, explain your services clearly, and turn visitors into enquiries.",
     solves: "Outdated websites, slow pages, unclear service pages, and weak lead capture.",
     for: "Agencies, clinics, consultants, service businesses, local brands, and growing companies.",
-    benefits: ["Clear service pages", "Fast loading", "Mobile-first design", "SEO-ready structure"],
+    benefits: ["Clear service pages", "Enquiry paths", "Mobile-first design", "SEO-ready structure"],
     explanation:
-      "We build websites and web apps that are easy to use, easy to manage, and ready for real customers."
+      "We build websites that help customers understand your business, trust your capability, and take the next step."
   },
   {
     title: "Mobile App Development",
@@ -38,18 +38,18 @@ export const services = [
     title: "AI Integration",
     slug: "ai-integration",
     icon: Bot,
-    short: "Practical AI tools that answer questions, sort leads, and reduce repeated work.",
+    short: "Practical AI tools that support customer response, internal efficiency, and better requirement discovery.",
     solves: "Slow replies, repeated questions, manual sorting, and support teams spending time on routine work.",
     for: "Support teams, sales teams, service businesses, and companies with repeated customer questions.",
     benefits: ["Faster response", "Lead qualification", "Human handoff", "Simple controls"],
     explanation:
-      "We add AI where it saves time without making your process harder to manage."
+      "We add AI where it creates business value without making your process harder to manage."
   },
   {
     title: "Business Automation",
     slug: "business-automation",
     icon: Workflow,
-    short: "Automation for follow-ups, reminders, approvals, reports, and daily tasks.",
+    short: "Automation that reduces repetitive manual work across follow-ups, reminders, approvals, reports, and daily tasks.",
     solves: "Manual work, missed follow-ups, delayed approvals, and repeated status checking.",
     for: "Teams that run sales, operations, service delivery, finance, or admin workflows.",
     benefits: ["Less manual work", "Better follow-up", "Fewer delays", "Cleaner handoffs"],
@@ -128,6 +128,13 @@ export const caseStudies = [
   {
     title: "Nisha Engineering Website & Enquiry Flow",
     link: "https://www.nishaengineering.in/",
+    industry: "Engineering & Manufacturing",
+    challenge:
+      "The company needed a more credible digital presence that could explain industrial capabilities clearly and guide serious buyers toward enquiry.",
+    technologies: ["Next.js", "Responsive web design", "SEO-ready page structure", "Enquiry routing"],
+    timeline: "Initial website launch completed as a focused corporate web project.",
+    outcome:
+      "A clearer manufacturing website with stronger service positioning, improved buyer confidence, and direct enquiry paths.",
     mobileSummary:
       "Established a premium corporate online presence for an engineering and manufacturing company with clearer capability positioning and enquiry paths.",
     problem:
@@ -135,10 +142,17 @@ export const caseStudies = [
     solution:
       "Created a modern corporate website structure with focused service content, manufacturing context, responsive pages, and direct enquiry routes.",
     result:
-      "Nisha Engineering now has a premium online presence that supports trust, discovery, and manufacturing enquiries."
+      "Nisha Engineering now has a professional online presence that supports trust, discovery, and manufacturing enquiries."
   },
   {
     title: "Service Business CRM",
+    badge: "Internal Demonstration",
+    industry: "Service Business",
+    challenge:
+      "Show how a business can centralize enquiries from calls, forms, WhatsApp, and referrals without losing follow-ups.",
+    technologies: ["CRM workflow", "Lead stages", "Reminder logic", "WhatsApp handoff"],
+    timeline: "Prototype demonstration",
+    outcome: "Demonstrates how enquiry tracking and follow-up visibility can reduce missed opportunities.",
     mobileSummary: "Centralized leads and follow-ups into one CRM with WhatsApp handoff.",
     problem:
       "Leads were coming from calls, forms, WhatsApp, and referrals. Follow-ups were getting missed.",
@@ -149,6 +163,13 @@ export const caseStudies = [
   },
   {
     title: "Operations Dashboard",
+    badge: "Internal Demonstration",
+    industry: "Operations & Management",
+    challenge:
+      "Show how managers can replace scattered spreadsheet reporting with a clearer view of daily performance.",
+    technologies: ["Dashboard UI", "Filters", "Status tracking", "Report summaries"],
+    timeline: "Prototype demonstration",
+    outcome: "Demonstrates faster reporting reviews and clearer operational visibility.",
     mobileSummary: "Replaced spreadsheet reporting with one clean operations dashboard.",
     problem:
       "Managers used multiple spreadsheets to track orders, revenue, delays, and workload.",

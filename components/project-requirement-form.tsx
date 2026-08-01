@@ -22,23 +22,33 @@ const initialState: FormState = {
   email: "",
   phone: "",
   company: "",
-  projectType: "Corporate Web Solutions",
+  projectType: "Not Sure Yet",
   budget: "",
   timeline: "",
   message: ""
 };
 
 const projectTypes = [
-  "Corporate Web Solutions",
-  "Web Applications & Systems",
-  "Digital Automation",
-  "Product Engineering",
-  "CRM Systems",
-  "ERP Systems",
-  "Dashboard Development",
-  "SaaS Development",
-  "API Integrations",
-  "Custom Software"
+  "Business Website",
+  "Corporate Website",
+  "Web Application",
+  "Mobile App",
+  "CRM",
+  "ERP",
+  "AI Solution",
+  "Business Automation",
+  "Custom Software",
+  "API Integration",
+  "Not Sure Yet"
+];
+
+const budgetRanges = [
+  "Under ₹50K",
+  "₹50K–₹1L",
+  "₹1L–₹3L",
+  "₹3L–₹10L",
+  "Above ₹10L",
+  "Not Sure"
 ];
 
 type ProjectRequirementFormProps = {
@@ -163,7 +173,7 @@ Requirement: ${form.message || "-"}`;
             Free 30-Minute Consultation
           </Heading>
           <p className="mt-5 text-base leading-7 text-muted">
-            Let's discuss your web application, corporate website, or online presence requirements.
+            Share the business problem you want to solve. We will help you identify the right website, software, automation, or AI approach.
           </p>
 
           <div className="mt-8 space-y-4 text-sm leading-6 text-muted">
@@ -225,6 +235,7 @@ Requirement: ${form.message || "-"}`;
                 className="block w-full min-w-0 rounded-lg border border-line bg-midnight/50 px-4 py-3 text-ink outline-none transition placeholder:text-muted focus:border-accent aria-[invalid=true]:border-red-400"
                 placeholder="Your name"
               />
+              <span className="block text-xs leading-5 text-muted">Who should we contact about this requirement?</span>
               {fieldErrors.name ? <span className="block text-xs text-red-500">{fieldErrors.name}</span> : null}
             </label>
 
@@ -236,6 +247,7 @@ Requirement: ${form.message || "-"}`;
                 className="block w-full min-w-0 rounded-lg border border-line bg-midnight/50 px-4 py-3 text-ink outline-none transition placeholder:text-muted focus:border-accent"
                 placeholder="Company name"
               />
+              <span className="block text-xs leading-5 text-muted">Optional, but useful for understanding your business context.</span>
             </label>
 
             <label className="min-w-0 space-y-2 text-sm text-muted">
@@ -250,6 +262,7 @@ Requirement: ${form.message || "-"}`;
                 className="block w-full min-w-0 rounded-lg border border-line bg-midnight/50 px-4 py-3 text-ink outline-none transition placeholder:text-muted focus:border-accent aria-[invalid=true]:border-red-400"
                 placeholder="9876543210"
               />
+              <span className="block text-xs leading-5 text-muted">Share WhatsApp or phone if you prefer a faster response.</span>
               {fieldErrors.phone ? <span className="block text-xs text-red-500">{fieldErrors.phone}</span> : null}
             </label>
 
@@ -265,6 +278,7 @@ Requirement: ${form.message || "-"}`;
                 className="block w-full min-w-0 rounded-lg border border-line bg-midnight/50 px-4 py-3 text-ink outline-none transition placeholder:text-muted focus:border-accent aria-[invalid=true]:border-red-400"
                 placeholder="you@company.com"
               />
+              <span className="block text-xs leading-5 text-muted">Use this if you prefer a written proposal or scope discussion.</span>
               {fieldErrors.email ? <span className="block text-xs text-red-500">{fieldErrors.email}</span> : null}
             </label>
 
@@ -303,6 +317,7 @@ Requirement: ${form.message || "-"}`;
                   ))}
                 </div>
               ) : null}
+              <span className="block text-xs leading-5 text-muted">Choose the closest option. Select Not Sure Yet if you want guidance.</span>
               {fieldErrors.projectType ? <span className="block text-xs text-red-500">{fieldErrors.projectType}</span> : null}
             </div>
 
@@ -314,21 +329,29 @@ Requirement: ${form.message || "-"}`;
                 className="block w-full min-w-0 rounded-lg border border-line bg-midnight/50 px-4 py-3 text-ink outline-none transition placeholder:text-muted focus:border-accent"
                 placeholder="Example: 4-6 weeks"
               />
+              <span className="block text-xs leading-5 text-muted">Tell us if this is urgent, planned, or tied to a launch date.</span>
             </label>
           </div>
 
           <label className="mt-4 block min-w-0 space-y-2 text-sm text-muted">
             <span>Budget range</span>
-            <input
+            <select
               value={form.budget}
               onChange={(event) => updateField("budget", event.target.value)}
               className="block w-full min-w-0 rounded-lg border border-line bg-midnight/50 px-4 py-3 text-ink outline-none transition placeholder:text-muted focus:border-accent"
-              placeholder="Example: 1L-3L, 3L-5L, or not sure yet"
-            />
+            >
+              <option value="">Select budget range</option>
+              {budgetRanges.map((range) => (
+                <option key={range} value={range}>
+                  {range}
+                </option>
+              ))}
+            </select>
+            <span className="block text-xs leading-5 text-muted">A range helps us recommend a realistic first version.</span>
           </label>
 
           <label className="mt-4 block min-w-0 space-y-2 text-sm text-muted">
-            <span>Project requirement</span>
+              <span>Project requirement</span>
             <textarea
               required
               value={form.message}
@@ -338,6 +361,9 @@ Requirement: ${form.message || "-"}`;
               className="block w-full min-w-0 resize-none rounded-lg border border-line bg-midnight/50 px-4 py-3 text-ink outline-none transition placeholder:text-muted focus:border-accent aria-[invalid=true]:border-red-400"
               placeholder="Briefly explain what you want to build, the problem, and any important features."
             />
+            <span className="block text-xs leading-5 text-muted">
+              Include the business problem, who will use it, and what outcome you want.
+            </span>
             {fieldErrors.message ? <span className="block text-xs text-red-500">{fieldErrors.message}</span> : null}
           </label>
 

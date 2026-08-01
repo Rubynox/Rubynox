@@ -15,15 +15,17 @@ type LeadRequest = {
 };
 
 const projectTypes = new Set([
-  "Web Development",
-  "Mobile App Development",
-  "AI Integration",
+  "Business Website",
+  "Corporate Website",
+  "Web Application",
+  "Mobile App",
+  "CRM",
+  "ERP",
+  "AI Solution",
   "Business Automation",
-  "CRM Systems",
-  "Dashboard Development",
-  "SaaS Development",
-  "API Integrations",
-  "Custom Software"
+  "Custom Software",
+  "API Integration",
+  "Not Sure Yet"
 ]);
 
 function isValidEmail(email: string) {

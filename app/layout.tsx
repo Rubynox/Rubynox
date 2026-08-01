@@ -14,11 +14,11 @@ const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://rubynoxx.com";
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "Rubynoxx | Corporate Web Solutions & Digital Presence",
+    default: "Rubynoxx | Websites, Custom Software & AI Solutions",
     template: "%s | Rubynoxx"
   },
   description:
-    "Rubynoxx builds premium digital presences, corporate websites, and custom web platforms for growing businesses.",
+    "Rubynoxx builds websites, custom software, automation systems, and AI solutions that help growing businesses improve operations and credibility.",
   keywords: [
     "Rubynoxx",
     "Rubynoxx software company",
@@ -35,9 +35,9 @@ export const metadata: Metadata = {
     canonical: "/"
   },
   openGraph: {
-    title: "Rubynoxx | Corporate Web Solutions & Digital Presence",
+    title: "Rubynoxx | Websites, Custom Software & AI Solutions",
     description:
-      "Rubynoxx builds premium digital presences, corporate websites, and custom web platforms for growing businesses.",
+      "Rubynoxx builds websites, custom software, automation systems, and AI solutions that help growing businesses improve operations and credibility.",
     url: siteUrl,
     siteName: "Rubynoxx",
     locale: "en_US",
@@ -45,9 +45,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Rubynoxx | Corporate Web Solutions & Digital Presence",
+    title: "Rubynoxx | Websites, Custom Software & AI Solutions",
     description:
-      "Rubynoxx builds premium digital presences, corporate websites, and custom web platforms for growing businesses."
+      "Rubynoxx builds websites, custom software, automation systems, and AI solutions that help growing businesses improve operations and credibility."
   },
   robots: {
     index: true,
@@ -92,7 +92,7 @@ export default function RootLayout({
     url: "https://rubynoxx.com/",
     logo: "https://rubynoxx.com/logo.png",
     description:
-      "We build the digital presence growing businesses deserve through high-converting corporate websites and digital platforms.",
+      "Rubynoxx builds websites, custom software, automation systems, and AI solutions that help growing businesses improve operations and credibility.",
     contactPoint: {
       "@type": "ContactPoint",
       telephone: "",

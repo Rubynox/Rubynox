@@ -28,10 +28,10 @@ export default function ContactPage() {
                 Contact Rubynoxx
               </p>
               <h1 className="mt-4 text-4xl font-semibold tracking-tight text-ink sm:text-6xl">
-                Start with a clear consultation.
+                Book a consultation for your website, software, automation, or AI project.
               </h1>
               <p className="mt-5 max-w-3xl text-lg leading-8 text-muted">
-                Share your web application, corporate website, or online presence requirement and we will suggest the next step.
+                Tell us what your business needs to improve. We will review the requirement and suggest a practical next step.
               </p>
             </div>
           </section>

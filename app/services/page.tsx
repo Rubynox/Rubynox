@@ -28,11 +28,11 @@ export default function ServicesPage() {
                 Rubynoxx services
               </p>
               <h1 className="mt-4 text-4xl font-semibold tracking-tight text-ink sm:text-6xl">
-                Corporate web solutions for stronger digital presence.
+                Websites, software, automation, and AI for business growth.
               </h1>
               <p className="mt-6 max-w-3xl text-lg leading-8 text-muted">
-                Choose one service or combine a few. We help you create a credible online presence,
-                connected web systems, and scalable digital foundations.
+                Choose one service or combine a few. We help you solve operational problems, improve credibility,
+                and build digital systems your team can rely on.
               </p>
             </div>
           </section>
@@ -50,6 +50,7 @@ export default function ServicesPage() {
                       </div>
                       <div>
                         <h2 className="text-xl font-semibold text-ink">{service.title}</h2>
+                        <p className="mt-3 text-sm leading-6 text-muted">{service.description}</p>
                       </div>
                     </div>
 

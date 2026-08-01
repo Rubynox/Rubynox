@@ -1,10 +1,12 @@
 import { CheckCircle2 } from "lucide-react";
 
 const points = [
-  "Answer website visitor questions about services, pricing, location, and availability.",
-  "Collect lead details before your team joins the conversation.",
-  "Guide visitors to call, WhatsApp, book, or submit an enquiry.",
-  "Connect with website forms, WhatsApp links, CRM records, and follow-up workflows."
+  "Business requirement discovery",
+  "Feature recommendations",
+  "Technology suggestions",
+  "Project roadmap",
+  "Budget estimation",
+  "Timeline estimation"
 ];
 
 export function AIAssistSection() {
@@ -13,18 +15,18 @@ export function AIAssistSection() {
       <div className="section-shell grid gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
         <div>
           <p className="text-sm font-semibold uppercase tracking-[0.2em] text-accent-soft">
-            AI tools
+            AI Project Advisor
           </p>
           <h2 className="mt-4 max-w-xl text-3xl font-semibold tracking-tight text-ink sm:text-5xl">
-            AI support for your website enquiries.
+            Describe your business and we will recommend the right digital solution based on your goals.
           </h2>
         </div>
 
         <div className="relative overflow-hidden rounded-xl border border-line bg-card/95 p-6 shadow-card sm:p-8">
           <div className="absolute right-0 top-0 h-full w-1 bg-accent" />
           <p className="text-base leading-7 text-muted sm:text-lg">
-            We use AI to help your website respond faster, qualify visitors, capture clearer
-            requirements, and hand serious enquiries to your team.
+            Rubynoxx AI works like a first-step project consultant. It helps clarify your business problem,
+            identify the right type of solution, and prepare a useful brief before a consultation.
           </p>
 
           <div className="mt-8 space-y-4">

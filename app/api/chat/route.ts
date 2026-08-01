@@ -1,32 +1,15 @@
 import { NextResponse } from "next/server";
 import { GoogleGenerativeAI } from "@google/generative-ai";
-import { readFileSync } from "fs";
-import { join } from "path";
 import { saveChatConversation } from "@/lib/leads";
 import { buildWhatsAppUrl } from "@/lib/whatsapp";
 
-function readGeminiKeyFromExample() {
-  try {
-    const envExample = readFileSync(join(process.cwd(), ".env.example"), "utf8");
-    const match = envExample.match(/^GEMINI_API_KEY=(?:"([^"]+)"|'([^']+)'|([^\r\n#]+))/m);
-    const value = (match?.[1] || match?.[2] || match?.[3] || "").trim();
-
-    if (!value || value === "your-gemini-api-key") return null;
-
-    return value;
-  } catch {
-    return null;
-  }
-}
+type ChatMode = "ai" | "manual";
 
 function getGeminiApiKey() {
-  const exampleKey = readGeminiKeyFromExample();
-  const envKey = process.env.GEMINI_API_KEY;
+  const envKey = process.env.GEMINI_API_KEY?.trim();
 
-  if (exampleKey) return exampleKey;
-  if (envKey && envKey !== "your-gemini-api-key") return envKey;
-
-  return null;
+  if (!envKey || envKey === "your-gemini-api-key") return null;
+  return envKey;
 }
 
 type ChatMessage = {
@@ -194,6 +177,18 @@ Summary: ${summary}`;
   };
 }
 
+function buildWhatsAppHandoffFromSummary(profile: ScopeProfile, summary: string) {
+  const whatsappPayload = `Hi Rubynoxx, I finished my requirement brief session with the AI Assistant.
+
+Project Focus: ${profile.projectType || "Custom Software"}
+Summary: ${summary}`;
+
+  return {
+    summary,
+    whatsappUrl: buildWhatsAppUrl(whatsappPayload)
+  };
+}
+
 function normalizeForSimilarity(text: string) {
   return text
     .toLowerCase()
@@ -338,15 +333,17 @@ export async function POST(request: Request) {
 
     const deterministicProfile = detectScopeProfile(history, message);
     const deterministicHandoff = shouldUseDeterministicHandoff(history, message);
+    const humanRequested = explicitlyRequestsHuman(message);
 
     if (!apiKey) {
-      if (deterministicHandoff) {
+      if (humanRequested || deterministicHandoff) {
         const handoff = buildWhatsAppHandoff(deterministicProfile);
 
         return NextResponse.json({
           reply: "Thanks, I have enough to prepare a brief. I will open WhatsApp with a concise project summary so the Rubynoxx team can continue from here.",
           shouldRedirect: true,
-          whatsappUrl: handoff.whatsappUrl
+          whatsappUrl: handoff.whatsappUrl,
+          chatMode: "manual" satisfies ChatMode
         });
       }
 
@@ -354,7 +351,8 @@ export async function POST(request: Request) {
         reply:
           buildNonRepeatingReply(history, message),
         shouldRedirect: false,
-        whatsappUrl: null
+        whatsappUrl: null,
+        chatMode: "manual" satisfies ChatMode
       });
     }
 
@@ -362,7 +360,7 @@ export async function POST(request: Request) {
 
 Core agency context:
 - Rubynoxx builds high-converting corporate websites, bespoke dashboards, automation pipelines, and robust CRM/ERP software.
-- Your active API identity is provided through the GEMINI_API_KEY environment variable defined by the .env.example configuration blueprint.
+- Your active AI identity is provided by the server-side GEMINI_API_KEY environment variable.
 
 Discovery rules:
 1. Act like an elite human discovery consultant. Listen closely, acknowledge the visitor's business goal, and ask short context-aware follow-up questions.
@@ -425,7 +423,6 @@ Return only valid raw JSON matching this exact frontend schema:
 
     const parsedPayload = JSON.parse(stripMarkdownJson(responseText)) as ModelPayload;
     const data = normalizeModelPayload(parsedPayload);
-    const humanRequested = explicitlyRequestsHuman(message);
     const summaryReady = hasComprehensiveSummary(data.extractedProfile.requirementSummary);
     const shouldRedirect = humanRequested || deterministicHandoff || (data.shouldRedirect && summaryReady);
     let reply =
@@ -449,7 +446,15 @@ Return only valid raw JSON matching this exact frontend schema:
         ...deterministicProfile,
         projectType: data.extractedProfile.projectType || deterministicProfile.projectType
       });
-      whatsappUrl = handoff.whatsappUrl;
+      whatsappUrl = conversationSummary && hasComprehensiveSummary(conversationSummary)
+        ? buildWhatsAppHandoffFromSummary(
+            {
+              ...deterministicProfile,
+              projectType: data.extractedProfile.projectType || deterministicProfile.projectType
+            },
+            conversationSummary
+          ).whatsappUrl
+        : handoff.whatsappUrl;
 
       if (deterministicHandoff && !humanRequested) {
         reply = "Thanks, I have enough to prepare a brief. I will open WhatsApp with a concise project summary so the Rubynoxx team can continue from here.";
@@ -473,7 +478,8 @@ Return only valid raw JSON matching this exact frontend schema:
     return NextResponse.json({
       reply,
       shouldRedirect,
-      whatsappUrl
+      whatsappUrl,
+      chatMode: "ai" satisfies ChatMode
     });
   } catch (error) {
     console.error("AI Route processing error:", error);
@@ -481,22 +487,25 @@ Return only valid raw JSON matching this exact frontend schema:
     if (message) {
       const fallbackProfile = detectScopeProfile(history, message);
       const fallbackHandoff = shouldUseDeterministicHandoff(history, message);
+      const humanRequested = explicitlyRequestsHuman(message);
 
-      if (fallbackHandoff) {
+      if (humanRequested || fallbackHandoff) {
         const handoff = buildWhatsAppHandoff(fallbackProfile);
 
         return NextResponse.json({
           reply:
             "Thanks, I have enough to prepare a brief. I will open WhatsApp with a concise project summary so the Rubynoxx team can continue from here.",
           shouldRedirect: true,
-          whatsappUrl: handoff.whatsappUrl
+          whatsappUrl: handoff.whatsappUrl,
+          chatMode: "manual" satisfies ChatMode
         });
       }
 
       return NextResponse.json({
         reply: buildNonRepeatingReply(history, message),
         shouldRedirect: false,
-        whatsappUrl: null
+        whatsappUrl: null,
+        chatMode: "manual" satisfies ChatMode
       });
     }
 
@@ -504,7 +513,8 @@ Return only valid raw JSON matching this exact frontend schema:
       reply:
         "I had trouble reading that properly, but we can keep going here. What are you trying to build, and what should it help your business improve?",
       shouldRedirect: false,
-      whatsappUrl: null
+      whatsappUrl: null,
+      chatMode: "manual" satisfies ChatMode
     });
   }
 }

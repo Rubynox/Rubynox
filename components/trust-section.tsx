@@ -1,12 +1,36 @@
 import { BadgeCheck, LifeBuoy, MessagesSquare, Scaling, ServerCog, Timer } from "lucide-react";
 
 const trustItems = [
-  { title: "Scalable Architecture", icon: Scaling },
-  { title: "Business-first Approach", icon: BadgeCheck },
-  { title: "Modern Tech Stack", icon: ServerCog },
-  { title: "Fast Delivery", icon: Timer },
-  { title: "Transparent Communication", icon: MessagesSquare },
-  { title: "Post-launch Support", icon: LifeBuoy }
+  {
+    title: "Scalable Architecture",
+    text: "We build systems that continue performing as your business grows.",
+    icon: Scaling
+  },
+  {
+    title: "Business-First Approach",
+    text: "We recommend solutions that create value instead of unnecessary complexity.",
+    icon: BadgeCheck
+  },
+  {
+    title: "Modern Technology",
+    text: "Reliable technology choices that remain maintainable for years.",
+    icon: ServerCog
+  },
+  {
+    title: "Fast Delivery",
+    text: "Efficient planning and execution without sacrificing quality.",
+    icon: Timer
+  },
+  {
+    title: "Transparent Communication",
+    text: "Clear updates, realistic timelines, and no surprises.",
+    icon: MessagesSquare
+  },
+  {
+    title: "Post Launch Support",
+    text: "We continue supporting your business after launch.",
+    icon: LifeBuoy
+  }
 ];
 
 export function TrustSection() {
@@ -19,11 +43,11 @@ export function TrustSection() {
               Why businesses choose Rubynoxx
             </p>
             <h2 className="mt-3 text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
-              Corporate delivery standards for growing businesses.
+              Practical delivery standards for serious business systems.
             </h2>
           </div>
           <p className="max-w-md text-sm leading-6 text-muted">
-            Clear planning, dependable engineering, and communication that helps business teams move with confidence.
+            We keep the work clear for business owners while protecting quality, maintainability, and long-term support.
           </p>
         </div>
 
@@ -36,7 +60,10 @@ export function TrustSection() {
                 <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-accent/10 text-accent">
                   <Icon className="h-5 w-5" />
                 </span>
-                <h3 className="text-sm font-semibold uppercase tracking-[0.08em] text-ink">{item.title}</h3>
+                <div>
+                  <h3 className="text-sm font-semibold uppercase tracking-[0.08em] text-ink">{item.title}</h3>
+                  <p className="mt-2 text-sm leading-6 text-muted">{item.text}</p>
+                </div>
               </article>
             );
           })}

@@ -11,16 +11,16 @@ export function FinalCta() {
             Start a conversation
           </p>
           <h2 className="mx-auto mt-4 max-w-3xl text-3xl font-semibold tracking-tight text-ink sm:text-5xl">
-            Have a requirement? Let us discuss it.
+            Need a website, software system, automation, or AI solution?
           </h2>
           <p className="mx-auto mt-5 max-w-2xl text-base leading-7 text-muted">
-            Share what you need. We will help you define the first useful version and the next step.
+            Share the business problem. We will help you define the right first version and the next step.
           </p>
           <a
             href={buildWhatsAppUrl("Hi Rubynoxx, I have a requirement. Let's discuss it.")}
             className="focus-ring mt-8 inline-flex items-center gap-2 rounded-full bg-accent px-6 py-3 text-sm font-semibold text-accent-contrast transition hover:bg-accent-soft"
           >
-            Chat on WhatsApp
+            Discuss Requirement
             <ArrowRight className="h-4 w-4" />
           </a>
         </div>

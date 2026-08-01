@@ -13,13 +13,14 @@ type ChatResponse = {
   reply: string;
   shouldRedirect: boolean;
   whatsappUrl: string | null;
+  chatMode?: "ai" | "manual";
 };
 
 const starters = ["I need a business website", "Improve online presence", "Get more enquiries", "Not sure yet"];
 const openingMessage: Message = {
   role: "assistant",
   content:
-    "Hi, I am the Rubynoxx assistant. Tell me about your business and the online presence you want to create. I will ask a few focused questions and prepare a simple website requirement memo."
+    "Hi, I am the Rubynoxx AI Project Advisor. Describe your business goal and I will help identify the right website, software, automation, or AI solution."
 };
 
 export function Chatbot() {
@@ -27,6 +28,7 @@ export function Chatbot() {
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
   const [messages, setMessages] = useState<Message[]>([openingMessage]);
+  const [chatMode, setChatMode] = useState<"ai" | "manual">("ai");
   const messagesRef = useRef<HTMLDivElement>(null);
   const endRef = useRef<HTMLDivElement>(null);
 
@@ -70,16 +72,22 @@ export function Chatbot() {
         throw new Error("Target API runtime returned an unresponsive status.");
       }
 
-      const data = (await response.json()) as ChatResponse;
+      const data = (await response.json()) as Partial<ChatResponse>;
+
+      if (typeof data.reply !== "string" || !data.reply.trim()) {
+        throw new Error("Target API runtime returned an invalid chat response.");
+      }
+
+      setChatMode(data.chatMode === "manual" ? "manual" : "ai");
 
       const updatedWithReply: Message[] = [
         ...historySnapshot,
-        { role: "assistant", content: data.reply }
+        { role: "assistant", content: data.reply.trim() }
       ];
 
       setMessages(updatedWithReply);
 
-      if (data.shouldRedirect && data.whatsappUrl) {
+      if (data.shouldRedirect === true && data.whatsappUrl) {
         setTimeout(() => {
           window.open(data.whatsappUrl!, "_blank", "noopener,noreferrer");
         }, 1500);
@@ -87,6 +95,7 @@ export function Chatbot() {
 
     } catch (error) {
       console.error("Chat communication failure sequence:", error);
+      setChatMode("manual");
       const fallbackMsg: Message = {
         role: "assistant",
         content:
@@ -106,6 +115,7 @@ export function Chatbot() {
 
   const clearSession = () => {
     setMessages([openingMessage]);
+    setChatMode("ai");
   };
 
   return (
@@ -132,10 +142,12 @@ export function Chatbot() {
                   <Sparkles className="h-4 w-4 text-accent-contrast animate-pulse" />
                 </div>
                 <div>
-                  <h3 className="text-sm font-semibold text-ink leading-tight">Rubynoxx AI</h3>
+                  <h3 className="text-sm font-semibold text-ink leading-tight">
+                    {chatMode === "manual" ? "Rubynoxx Advisor" : "AI Project Advisor"}
+                  </h3>
                   <p className="text-[11px] text-success font-medium flex items-center gap-1 mt-0.5">
                     <span className="h-1.5 w-1.5 rounded-full bg-success animate-ping" />
-                    Online Assistant
+                    {chatMode === "manual" ? "Guided Chat Ready" : "Project Consultation"}
                   </p>
                 </div>
               </div>
@@ -176,7 +188,7 @@ export function Chatbot() {
               {loading ? (
                 <div className="mr-auto flex max-w-[85%] items-center gap-2 rounded-2xl rounded-tl-none border border-line bg-card-strong px-4 py-3 text-sm text-muted shadow-sm">
                   <Loader2 className="h-4 w-4 animate-spin text-accent-soft" />
-                  <span>AI reading context...</span>
+                  <span>{chatMode === "manual" ? "Preparing reply..." : "AI reading context..."}</span>
                 </div>
               ) : null}
               <div ref={endRef} />
